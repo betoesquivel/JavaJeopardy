@@ -14,12 +14,13 @@
     <body>
         <h1>Log In</h1>
         <br>
-        <form action="">
+        <form action="LoginServlet" method="POST">
             Enter User ID:  <input type="text" name="userid" value="" />
             <br><br>
             Enter Password: <input type="password" name="password" value="" />
             <br><br>
             <input type="submit" name="login" value="Log In">
         </form>
+        Not registered yet? <a href="signup.jsp">Sign up.</a>
     </body>
 </html>
