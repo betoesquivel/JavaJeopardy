@@ -61,3 +61,4 @@ CREATE TABLE IF NOT EXISTS ClassGameProfile (
   FOREIGN KEY (classId) REFERENCES Class(id),
   FOREIGN KEY (gameProfileId) REFERENCES GameProfile(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
