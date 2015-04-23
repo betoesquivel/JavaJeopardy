@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS GameProfile (
   name VARCHAR(30) NOT NULL,
   userId INT(11) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (userId) REFERENCES User(id)
+  FOREIGN KEY (userId) REFERENCES User(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS Class (
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Category (
   name VARCHAR(30) NOT NULL,
   classId INT(11) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (classId) REFERENCES Class(id)
+  FOREIGN KEY (classId) REFERENCES Class(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS Question (
@@ -35,31 +35,31 @@ CREATE TABLE IF NOT EXISTS Question (
   difficulty INT(11) NOT NULL,
   categoryId INT(11) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (categoryId) REFERENCES Category(id)
+  FOREIGN KEY (categoryId) REFERENCES Category(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS QuestionGameProfile (
   questionId INT(11) NOT NULL,
   gameProfileId INT(11) NOT NULL,
   PRIMARY KEY (questionId, gameProfileId),
-  FOREIGN KEY (questionId) REFERENCES Question(id),
-  FOREIGN KEY (gameProfileId) REFERENCES GameProfile(id)
+  FOREIGN KEY (questionId) REFERENCES Question(id) ON DELETE CASCADE,
+  FOREIGN KEY (gameProfileId) REFERENCES GameProfile(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS CategoryGameProfile (
   categoryId INT(11) NOT NULL,
   gameProfileId INT(11) NOT NULL,
   PRIMARY KEY (categoryId, gameProfileId),
-  FOREIGN KEY (categoryId) REFERENCES Category(id),
-  FOREIGN KEY (gameProfileId) REFERENCES GameProfile(id)
+  FOREIGN KEY (categoryId) REFERENCES Category(id) ON DELETE CASCADE,
+  FOREIGN KEY (gameProfileId) REFERENCES GameProfile(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS ClassGameProfile (
   classId INT(11) NOT NULL,
   gameProfileId INT(11) NOT NULL,
   PRIMARY KEY (classId, gameProfileId),
-  FOREIGN KEY (classId) REFERENCES Class(id),
-  FOREIGN KEY (gameProfileId) REFERENCES GameProfile(id)
+  FOREIGN KEY (classId) REFERENCES Class(id) ON DELETE CASCADE,
+  FOREIGN KEY (gameProfileId) REFERENCES GameProfile(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
