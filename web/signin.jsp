@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Sign in</h1>
+        <h1 style="color: red;">DEBERÍA DE QUITAR EL PASSWORD FIELD PORQUE SE TIENE QUE ENVIAR POR CORREO!</h1>
         <br>
         <form action="Signin" method="POST">
             Enter a User ID:   <input type="text" name="username" value="" />
