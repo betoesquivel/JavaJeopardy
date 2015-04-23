@@ -15,12 +15,12 @@
         <h1>Log In</h1>
         <br>
         <form action="LoginServlet" method="POST">
-            Enter User ID:  <input type="text" name="userid" value="" />
+            Enter User ID:  <input type="text" name="username" value="" />
             <br><br>
             Enter Password: <input type="password" name="password" value="" />
             <br><br>
             <input type="submit" name="login" value="Log In">
         </form>
-        Not registered yet? <a href="signup.jsp">Sign up.</a>
+        Not registered yet? <a href="signin.jsp">Sign in.</a>
     </body>
 </html>

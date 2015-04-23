@@ -28,14 +28,12 @@ public class AccountDBHandler {
         }
     }
     
-    public void createUser(User user) {
+    public void createUser(String username, String password, String email) {
         try {
             statement = connection.createStatement();
             // el id del user no importa porque tiene Autoincrement.
-            String password = user.getPassword();
-            String email = user.getEmail();
-            String query = "insert into User (password, email) values ('" + password + "','" + email + "')";
-            statement.executeUpdate(query);
+            String query = "insert into User (username, password, email) values ('%s', '%s', '%s');";
+            statement.executeUpdate(String.format(query, username, password, email));
             statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);

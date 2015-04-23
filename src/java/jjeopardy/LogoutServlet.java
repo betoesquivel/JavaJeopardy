@@ -35,7 +35,7 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
         
-        RequestDispatcher rd = request.getRequestDispatcher("/index.html");
+        RequestDispatcher rd = request.getRequestDispatcher("/Home");
         rd.forward(request, response);
         
         

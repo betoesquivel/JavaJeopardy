@@ -5,7 +5,6 @@
  */
 package jjeopardy;
 
-import beans.User;
 import dbhandlers.AccountDBHandler;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -13,19 +12,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author betoesquivel
  */
-public class LoginServlet extends HttpServlet {
-    
+public class SignInServlet extends HttpServlet {
+
     AccountDBHandler accountDB;
     public void init() throws ServletException {
         accountDB = new AccountDBHandler();
     }
     
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -37,30 +36,19 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        session.invalidate();
-        
-        String url = "login.jsp";
+        String url = "signin_success.jsp";
         
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String email = request.getParameter("email");
         
-        User user = null;
-        
-        session = request.getSession();
-        if (accountDB == null) {
-            url = "login.jsp";
-        }else if ( (user = accountDB.validateUsernamePassword(username, password) ) == null) {
-            url = "login.jsp";
-        }else {
-            session.setAttribute("user", user);
+        if (username != null && password != null && email != null) {
+            accountDB.createUser(username, password, email);
         }
         
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);
-        
     }
 
     /**

@@ -9,12 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Sign in to JavaJeopardy</title>
     </head>
     <body>
-        <h1>Sign Up</h1>
+        <h1>Sign in</h1>
         <br>
-        <form action="">
+        <form action="SignInServlet" method="POST">
             Enter a User ID:   <input type="text" name="userid" value="" />
             <br><br>
             Enter your email:  <input type="email" name="email" value="" />
