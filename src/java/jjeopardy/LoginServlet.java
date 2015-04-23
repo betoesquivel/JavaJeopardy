@@ -53,9 +53,10 @@ public class LoginServlet extends HttpServlet {
         if (accountDB == null) {
             url = "login.jsp";
         }else if ( (user = accountDB.validateUsernamePassword(username, password) ) == null) {
-            url = "login.jsp";
+            url = "signin.jsp";
         }else {
             session.setAttribute("user", user);
+            url = "Home";
         }
         
         RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -13,5 +13,7 @@
     </head>
     <body>
         <h1>LOGIN SUCCESSFUL</h1>
+        
+        <a href="Logout">Logout</a>
     </body>
 </html>

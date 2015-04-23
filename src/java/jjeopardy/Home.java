@@ -5,6 +5,7 @@
  */
 package jjeopardy;
 
+import beans.User;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,10 +31,9 @@ public class Home extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         String url = "login.jsp";
-        if ( session != null ) {
+        if (session != null && session.getAttribute("user") != null){
             url = "home.jsp";
         }
         

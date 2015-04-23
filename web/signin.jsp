@@ -14,10 +14,12 @@
     <body>
         <h1>Sign in</h1>
         <br>
-        <form action="SignInServlet" method="POST">
-            Enter a User ID:   <input type="text" name="userid" value="" />
+        <form action="Signin" method="POST">
+            Enter a User ID:   <input type="text" name="username" value="" />
             <br><br>
             Enter your email:  <input type="email" name="email" value="" />
+            <br><br>
+            Enter your password:  <input type="password" name="password" value="" />
             <br><br>
             <input type="submit" name="signup" value="Sign Up">
         </form>

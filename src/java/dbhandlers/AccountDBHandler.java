@@ -111,7 +111,7 @@ public class AccountDBHandler {
         User user = null;
         try {
             statement = connection.createStatement();
-            String query = "SELECT id, password, email FROM User where username = '%s' AND password = '%s'";
+            String query = "SELECT id, username, password, email FROM User where username='%s' AND password='%s'";
             ResultSet result = statement.executeQuery(String.format(query, username, password));
             if(result.next()) {
                 int foundId = result.getInt("id");

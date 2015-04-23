@@ -38,7 +38,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
-        <url-pattern>/SignIn</url-pattern>
+        <url-pattern>/Signin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

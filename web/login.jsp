@@ -14,8 +14,8 @@
     <body>
         <h1>Log In</h1>
         <br>
-        <form action="LoginServlet" method="POST">
-            Enter User ID:  <input type="text" name="username" value="" />
+        <form action="Login" method="POST">
+            Enter Username:  <input type="text" name="username" value="" />
             <br><br>
             Enter Password: <input type="password" name="password" value="" />
             <br><br>
