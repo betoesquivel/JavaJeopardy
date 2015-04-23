@@ -10,28 +10,31 @@ package beans;
  * @author hlg
  */
 public class User {
-    private String userId;
+    private int id;
+    private String username;
     private String password;
     private String email;
 
     public User() {
-        userId = null;
+        id = 0;
         password = null;
         email = null;
+        username = null;
     }
 
-    public User(String userId, String password, String email) {
-        this.userId = userId;
+    public User(int id, String username, String password, String email) {
+        this.id = id;
         this.password = password;
         this.email = email;
+        this.username = username;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPassword() {
@@ -42,6 +45,14 @@ public class User {
         this.password = password;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -49,9 +60,5 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
-    
-    
     
 }
