@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jjeopardy;
+package beans;
 
 /**
  *
@@ -15,7 +15,9 @@ public class User {
     private String email;
 
     public User() {
-        
+        userId = null;
+        password = null;
+        email = null;
     }
 
     public User(String userId, String password, String email) {

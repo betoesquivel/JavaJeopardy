@@ -5,6 +5,7 @@
  */
 package jjeopardy;
 
+import beans.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,11 +15,11 @@ import java.util.logging.Logger;
  *
  * @author hlg
  */
-public class DBHandler {
+public class AccountDBHandler {
     
     public Connection connection;
     
-    public DBHandler() {
+    public AccountDBHandler() {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost/jeopardy", "root", "");
         } catch (Exception e) {
@@ -36,7 +37,7 @@ public class DBHandler {
             statement.executeUpdate(query);
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -52,7 +53,7 @@ public class DBHandler {
             }
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return user;
