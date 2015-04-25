@@ -22,11 +22,11 @@ function Question(id, question, answer, level, fkCategory, fkClass) {
   var self = this;
 
   self.id = id;
-  self.question = ko.observable(question).extend({liveEditor: {type:"text"}, logChange: "Element: "});
-  self.answer = ko.observable(answer).extend({liveEditor: {type:"text"}, logChange: "Element: "});
-  self.level = ko.observable(level).extend({liveEditor: {type:"text"}, logChange: "Element: "});
-  self.fkCategory = ko.observable(fkCategory).extend({liveEditor: {type:"text"}, logChange: "Element: "});
-  self.fkClass = ko.observable(fkClass).extend({liveEditor: {type:"text"}, logChange: "Element: "});
+  self.question = ko.observable(question).extend({liveEditor: {type:"text"}, logChange: {type: 'Question', object: self}});
+  self.answer = ko.observable(answer).extend({liveEditor: {type:"text"}, logChange: {type: 'Question', object: self}});
+  self.level = ko.observable(level).extend({liveEditor: {type:"text"}, logChange: {type: 'Question', object: self}});
+  self.fkCategory = ko.observable(fkCategory).extend({liveEditor: {type:"text"}, logChange: {type: 'Question', object: self}});
+  self.fkClass = ko.observable(fkClass).extend({liveEditor: {type:"text"}, logChange: {type: 'Question', object: self}});
 
 }
 
@@ -34,8 +34,8 @@ function Category(id, name, fkClass) {
   var self = this;
 
   self.id = id;
-  self.name = ko.observable(name).extend({liveEditor: {type:"text"}, logChange: "Element: "});
-  self.fkClass = ko.observable(fkClass).extend({liveEditor: {type:"text"}, logChange: "Element: "});
+  self.name = ko.observable(name).extend({liveEditor: {type:"text"}, logChange: {type: 'Category', object: self}});
+  self.fkClass = ko.observable(fkClass).extend({liveEditor: {type:"text"}, logChange: {type: 'Category', object: self}});
 
 }
 
@@ -43,7 +43,7 @@ function Class(id, name, categories) {
   var self = this;
 
   self.id = id;
-  self.name = ko.observable(name).extend({liveEditor: {type:"text"}, logChange: "Element"});
+  self.name = ko.observable(name).extend({liveEditor: {type:"text"}, logChange: {type: 'Class', object: self}});
 
 }
 
@@ -51,7 +51,7 @@ function AssetsViewModel() {
   var self = this;
 
   // defaults
-  var defaultQuestion = {
+  self.defaultQuestion = {
     id: -1,
     answer: 'What is the answer?',
     question: 'Give a clue to the answer.',
@@ -59,14 +59,14 @@ function AssetsViewModel() {
     fkCategory: -1,
     fkClass: -1
   };
-  var defaultCategory = {
+  self.defaultCategory = {
     id: -1,
     name: 'Category name',
     fkClass: -1
   };
-  var defaultClass = {
+  self.defaultClass = {
     id: -1,
-    name: 'CLass name',
+    name: 'Class name',
   };
 
   self.selectedClassCategory = ko.observable();
@@ -120,6 +120,7 @@ function AssetsViewModel() {
   // add
   self.addQuestion = function(classId, categoryId) {
 
+    var defaultQuestion = self.defaultQuestion;
     defaultQuestion.fkCategory = categoryId;
     defaultQuestion.fkClass = classId;
     self.questions.push( new Question(
@@ -134,13 +135,16 @@ function AssetsViewModel() {
   };
   self.addCategory = function(classId) {
 
+    var defaultCategory = self.defaultCategory;
     defaultCategory.fkClass = classId;
     self.categories.push( new Category(defaultCategory.id, defaultCategory.name, defaultCategory.fkClass) );
 
   };
   self.addClass = function() {
 
-    self.classes.push( new Class(defaultClass) );
+    var defaultClass = self.defaultClass;
+    defaultClass.id = -1;
+    self.classes.push( new Class(defaultClass.id, defaultClass.name) );
 
   };
 

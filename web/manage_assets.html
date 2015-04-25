@@ -9,20 +9,20 @@
 <body>
 
   <div class="row section-header">
-    <h2 class="large-6 medium-6 small-6 columns">Manage classes</h2>
-    <h2 class="large-3 medium-3 small-3 columns">Manage categories</h2>
+    <h2 class="large-6 medium-6 small-6 columns">manage classes</h2>
+    <h2 class="large-3 medium-3 small-3 columns">manage categories</h2>
     <select class="large-3 medium-3 small-3 columns" data-bind=
                       "options: classes,
                        optionsText: 'name',
                        optionsValue: 'id',
                        value: selectedClassCategory,
-                       optionsCaption: 'Choose a class:'"></select>
+                       optionsCaption: 'choose a class:'"></select>
   </div>
   <div class="row manage-classes">
     <table class="large-6 medium-6 small-6 columns">
       <thead>
         <tr>
-          <th>Class name</th>
+          <th>class name</th>
         </tr>
       </thead>
       <tbody data-bind="foreach: classes">
@@ -40,7 +40,7 @@
     <table class="large-6 medium-6 small-6 columns">
       <thead>
         <tr>
-          <th>Category name</th>
+          <th>category name</th>
         </tr>
       </thead>
       <tbody data-bind="foreach: filteredCategories()">
@@ -58,11 +58,14 @@
   </div>
   <div class="row add-buttons">
     <button class="large-offset-1 medium-offset-1 small-offset-1 large-4 medium-4 small-4 columns" data-bind="click: addClass">Add a class</button>
-    <button class="large-offset-2 medium-offset-2 small-offset-2 large-4 medium-4 small-4 end columns" data-bind="click: addCategory($root.selectedClassCategory()), visible: selectedClassCategory">Add a category</button>
+    <button class="large-offset-2 medium-offset-2 small-offset-2 large-4 medium-4 small-4 end columns" 
+      data-bind="click: addCategory($root.selectedClassCategory()), visible: selectedClassCategory">Add a category</button>
   </div>
 
   <div class="row section-header">
-    <h2 class="text-center large-offset-2 medium-offset-2 small-offset-2 large-8 medium-8 small-8 columns">Manage questions</h2>
+    <h2 class="text-center large-offset-2 medium-offset-2 small-offset-2 large-8 medium-8 small-8 columns">
+      manage questions
+    </h2>
   </div>
   <div class="row section-selects">
     <select class="large-offset-2 medium-offset-2 small-offset-2 large-3 medium-3 small-3 columns" data-bind=
@@ -70,22 +73,22 @@
       optionsText: 'name',
       optionsValue: 'id',
       value: selectedClassQuestion,
-      optionsCaption: 'Choose a class:'"></select>
+      optionsCaption: 'choose a class:'"></select>
     <select class="end large-offset-2 medium-offset-2 small-offset-2 large-3 medium-3 small-3 columns" data-bind=
       "visible: selectedClassQuestion,
       options: filteredCategoriesQuestions,
       optionsText: 'name',
       optionsValue: 'id',
       value: selectedCategoryQuestion,
-      optionsCaption: 'Choose a category:'"></select>
+      optionsCaption: 'choose a category:'"></select>
   </div>
   <div class="row manage-classes">
     <table class="columns">
       <thead>
         <tr>
-          <th>Question</th>
-          <th>Answer</th>
-          <th>Level</th>
+          <th>question</th>
+          <th>answer</th>
+          <th>level</th>
         </tr>
       </thead>
       <tbody data-bind="foreach: filteredQuestions">

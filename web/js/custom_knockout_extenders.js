@@ -23,12 +23,24 @@ ko.extenders.liveEditor = function(target, options) {
 
 };
 
-ko.extenders.logChange = function(target, option) {
+ko.extenders.logChange = function(target, element) {
 
-  target.subscribe(function(newValue, event) {
+  target.subscribe(function(newValue) {
     // aquí va el ajax... si tan solo pudiera obtener el elemento del DOM también para sacar
     // toda la fila
-    console.log(option + ": " + newValue);
+    object = element.object;
+    type = element.type;
+    switch(type){
+      case 'Question':
+        console.log(object.id + ": " + object.question());
+        break;
+      case 'Category':
+        console.log(object.id + ": " + object.name());
+        break;
+      case 'Class':
+        console.log(object.id + ": " + object.name());
+        break;
+    }
   });
 
 };
