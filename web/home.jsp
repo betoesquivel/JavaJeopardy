@@ -12,7 +12,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>LOGIN SUCCESSFUL</h1>
+        <h1>Pick something to do: </h1>
+        <a href="#">Play Jeopardy!</a><br>
+        <a href="create_game_profile.jsp">Create game profile</a><br>
+        <a href="#">See statistics</a><br>
         
         <a href="Logout">Logout</a>
     </body>
