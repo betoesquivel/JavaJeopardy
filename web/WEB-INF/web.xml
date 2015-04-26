@@ -20,6 +20,10 @@
         <servlet-name>SignInServlet</servlet-name>
         <servlet-class>jjeopardy.SignInServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageAssetsServlet</servlet-name>
+        <servlet-class>jjeopardy.ManageAssetsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>SignInServlet</servlet-name>
         <url-pattern>/Signin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageAssetsServlet</servlet-name>
+        <url-pattern>/ManageAssets</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
