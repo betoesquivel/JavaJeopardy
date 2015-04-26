@@ -32,10 +32,16 @@ public class ManageAssetsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String INPUT = "{\"a\":[1,2,{\"b\":true},3],\"c\":3}";
-// or
-        Map<String,Object> map = JSON.std.mapFrom(INPUT);
-
+        //String input = JSON.std.asString(map);
+        
+        // Get all questions 
+        // Get all categories
+        // Get all classes
+        
+        // Convert to JSON
+        // Set as request attribute.
+        
+        // Redirect to jsp
     }
 
     /**
@@ -49,6 +55,14 @@ public class ManageAssetsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Map<String,Object> map = JSON.std.mapFrom(INPUT);
+        
+        //Get json data parameter
+        //Parse to a map
+        //check id in map
+        //if id is -1, call create in AssetsDBHandler
+        //else, call update in AssetsDBHandler
+        
     }
 
     /**
