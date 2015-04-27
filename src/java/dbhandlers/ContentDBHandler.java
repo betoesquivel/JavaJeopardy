@@ -70,7 +70,6 @@ public class ContentDBHandler {
     
     public ArrayList<Category> getAllCategories() {
         ArrayList<Category> categoriesList = new ArrayList<Category>();
-        boolean existeUno = false;
         try {
             
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/jeopardy", "root", "");
@@ -79,7 +78,6 @@ public class ContentDBHandler {
             ResultSet results = statement.executeQuery(query);
             
             while(results.next()) {
-                existeUno = true;
                 int id = results.getInt("id");
                 String name = results.getString("name");
                 int fkClassId = results.getInt("classId");
@@ -91,11 +89,6 @@ public class ContentDBHandler {
             Logger.getLogger(ContentDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(!existeUno) {
-       
-            Category c = new Category(1, "query no regreso datos", 3);
-            categoriesList.add(c);
-        }
         
         return categoriesList;
     } 

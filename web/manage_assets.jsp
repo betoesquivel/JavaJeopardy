@@ -1,5 +1,5 @@
 <%-- 
-    Document   : manage_classes
+    Document   : manage_assets
     Created on : Apr 26, 2015, 6:41:38 PM
     Author     : betoesquivel
 --%>
