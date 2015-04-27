@@ -16,6 +16,7 @@ public class Question {
     private String answer;
     private int level;
     private int fkCategory;
+    private String category;
     private int fkClass; 
 
     public Question() {
@@ -80,5 +81,19 @@ public class Question {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    /**
+     * @return the category
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

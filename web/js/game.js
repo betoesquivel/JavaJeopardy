@@ -36,7 +36,7 @@ game.createScoreboard = function()
 		//content += "<td><h3 id='team" + i +"'>0</h3><span class='add-points' onclick='addPoints(" + i +  ")'>+</span> <span class='remove-points' onclick='removePoints(" + i +  ")'>-</span></td>";
 		content += "<td><h3 id='team" + i +"'>0</h3><input class='add-points' onclick='game.addPoints(" + i +  ")' value='+' type='button' /> <input class='subtract-points' onclick='game.subtractPoints(" + i +  ")' type='button' value='-' /></td>";
 	}
-	content += "</tr></tbody></table>";
+	content += "</tr></tbody></table> <input type='image' onclick='alert()' src='img/icn_return.png' width='48' height='48'>";
 	$('#stats').html(content);
 
 }
@@ -65,8 +65,8 @@ game.subtractPoints = function(team)
 function alert() {
     var r = confirm("¿Estás seguro? se borrara el juego");
     if (r == true) {
-        top.location = "home.jsp";
-
+        //top.location = "home.jsp";
+        document.location.href="gameServlet?action=end&gameId="+ $('#gameId').val() + "&team1Id="+$('#team1Id').val()+"&team2Id="+$('#team2Id').val()+"&score1="+$('#team1').html()+"&score2="+$('#team2').html();
     } else {
         x = "You pressed Cancel!";
     }

@@ -55,12 +55,23 @@ public class GameServlet extends HttpServlet {
             String [] eP=request.getParameterValues("team1");
             String e2 = request.getParameter("team2Name");
             String [] eP2=request.getParameterValues("team2");
-            int gameId=gameDB.saveTeam(e1,eP,e2,eP2);
+            int[] ids=gameDB.saveTeam(e1,eP,e2,eP2);
             int id = Integer.parseInt(request.getParameter("id"));
             List<Question> questions= gameDB.getQuestions(id);
             request.setAttribute("questions", questions);
-            request.setAttribute("gameId", gameId);
+            request.setAttribute("gI", ids[0]);
+            request.setAttribute("t1I", ids[1]);
+            request.setAttribute("t2I", ids[2]);
             url="game.jsp";
+        }else if(action.equals("end")){
+            String score1= request.getParameter("score1");
+            String score2= request.getParameter("score2");
+            String team1= request.getParameter("team1Id");
+            String team2= request.getParameter("team2Id");
+            String gameId= request.getParameter("gameId");
+            Integer.parseInt(gameId);
+            gameDB.saveGame(Integer.parseInt(gameId),Integer.parseInt(team1),Integer.parseInt(team2),Integer.parseInt(score1),Integer.parseInt(score2));
+            url="home.jsp";
         }
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);
