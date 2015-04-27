@@ -14,7 +14,7 @@ public class Question {
     private int id;
     private String question;
     private String answer;
-    private String level;
+    private int level;
     private int fkCategory;
     private int fkClass; 
 
@@ -22,23 +22,23 @@ public class Question {
         id = 0;
         question = null;
         answer = null;
-        level = null;
+        level = 0;
     }
 
-    public Question(int id, String question, String answer, String difficulty, int fkCategory, int fkClass) {
+    public Question(int id, String question, String answer, int difficulty, int fkCategory) {
         this.id = id;
         this.question = question;
         this.answer = answer;
         this.level = difficulty;
         this.fkCategory = fkCategory;
-        this.fkClass = fkClass;
+        this.fkClass = -1;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

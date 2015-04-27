@@ -1,3 +1,10 @@
+<%-- 
+    Document   : manage_classes
+    Created on : Apr 26, 2015, 6:41:38 PM
+    Author     : betoesquivel
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,14 +133,13 @@
   <script src="js/foundation.min.js"></script>
   <script src="js/sample_data.js"></script>
   <script>
-    <% 
-        ArrayList<Question> questions = (ArrayList<Question>)${questions};
-        ArrayList<Category> categories = (ArrayList<Category>)${categories};
-        ArrayList<Class> classes = (ArrayList<Class>)${classes};
-    %>
-    server_questions = [];
-    server_categories = [];
-    server_classes = [];
+    var questionsJSON = ${questionsJSON};
+    var categoriesJSON = ${categoriesJSON};
+    var classesJSON = ${classesJSON};
+    
+    var server_questions = JSON.parse(questionsJSON);
+    var server_categories = JSON.parse(categoriesJSON);
+    var server_classes = JSON.parse(classesJSON);
       
   </script>
   <script src="js/manage_assets.js"></script>

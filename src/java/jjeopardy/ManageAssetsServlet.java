@@ -5,9 +5,17 @@
  */
 package jjeopardy;
 
+import beans.Category;
+import beans.Question;
+import beans.Class;
 import com.fasterxml.jackson.jr.ob.JSON;
+import dbhandlers.AssetDBHandler;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Map;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +26,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ManageAssetsServlet extends HttpServlet {
 
-
+    AssetDBHandler assetDB;
+    public void init() throws ServletException {
+        assetDB = new AssetDBHandler();
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,14 +45,21 @@ public class ManageAssetsServlet extends HttpServlet {
             throws ServletException, IOException {
         //String input = JSON.std.asString(map);
         
-        // Get all questions 
-        // Get all categories
-        // Get all classes
+        ArrayList<Question> questions = assetDB.getQuestions();
+        ArrayList<Category> categories = assetDB.getCategories();
+        ArrayList<Class> classes = assetDB.getClasses();
         
-        // Convert to JSON
-        // Set as request attribute.
+        String questionsJSON = JSON.std.asString(questions);
+        String categoriesJSON = JSON.std.asString(categories);
+        String classesJSON = JSON.std.asString(classes);
         
-        // Redirect to jsp
+        request.setAttribute("questionsJSON", questionsJSON);
+        request.setAttribute("categoriesJSON", categoriesJSON);
+        request.setAttribute("classesJSON", classesJSON);
+        
+        String url = "manage_assets.jsp";
+        RequestDispatcher rd = request.getRequestDispatcher(url);
+        rd.forward(request,response);
     }
 
     /**
@@ -58,7 +76,29 @@ public class ManageAssetsServlet extends HttpServlet {
         //Map<String,Object> map = JSON.std.mapFrom(INPUT);
         
         //Get json data parameter
+        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        String json = "";
+        try{
+            json = br.readLine();
+        }catch(IOException e){
+            System.out.println(e);
+        }
         //Parse to a map
+        Map<String, Object> map = JSON.std.mapFrom(json);
+        String classType = (String) map.get("type");
+        String objectJSON = (String) map.get("object");
+        //Check class of object sent
+        switch((String)map.get("type")){
+            case "Question":
+                Question receivedQuestion = JSON.std.beanFrom(Question.class, objectJSON);
+                break;
+            case "Category":
+                Category receivedCategory = JSON.std.beanFrom(Category.class, objectJSON);
+                break;
+            case "Class":
+                Class receivedClass = JSON.std.beanFrom(Class.class, objectJSON);
+                break;
+        }
         //check id in map
         //if id is -1, call create in AssetsDBHandler
         //else, call update in AssetsDBHandler

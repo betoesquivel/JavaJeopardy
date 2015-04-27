@@ -1,17 +1,17 @@
 function loadValues() {
   questions = [];
-  for (var i = 0, l = sample_questions.length; i < l; i ++) {
-    var q = sample_questions[i];
+  for (var i = 0, l = server_questions.length; i < l; i ++) {
+    var q = server_questions[i];
     questions[questions.length] = new Question(q.id, q.question, q.answer, q.level, q.fkCategory, q.fkClass);
   }
   categories = [];
-  for (var i = 0, l = sample_categories.length; i < l; i ++) {
-    var c = sample_categories[i];
+  for (var i = 0, l = server_categories.length; i < l; i ++) {
+    var c = server_categories[i];
     categories[categories.length] = new Category(c.id, c.name, c.fkClass);
   }
   classes = [];
-  for (var i = 0, l = sample_classes.length; i < l; i ++) {
-    var c = sample_classes[i];
+  for (var i = 0, l = server_classes.length; i < l; i ++) {
+    var c = server_classes[i];
     classes[classes.length] = new Class(c.id, c.name);
   }
   assetsVM.questions(questions);
