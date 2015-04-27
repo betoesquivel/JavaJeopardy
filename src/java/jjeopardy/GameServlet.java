@@ -6,6 +6,7 @@
 package jjeopardy;
 
 import beans.GameProfile;
+import beans.Question;
 import dbhandlers.GameDBHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,6 +50,17 @@ public class GameServlet extends HttpServlet {
             List<GameProfile> profiles = gameDB.getProfiles();
             request.setAttribute("profiles", profiles);
             url="jeopardy.jsp";
+        }else if(action.equals("profile")){
+            String e1 = request.getParameter("team1Name");
+            String [] eP=request.getParameterValues("team1");
+            String e2 = request.getParameter("team2Name");
+            String [] eP2=request.getParameterValues("team2");
+            int gameId=gameDB.saveTeam(e1,eP,e2,eP2);
+            int id = Integer.parseInt(request.getParameter("id"));
+            List<Question> questions= gameDB.getQuestions(id);
+            request.setAttribute("questions", questions);
+            request.setAttribute("gameId", gameId);
+            url="game.jsp";
         }
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);

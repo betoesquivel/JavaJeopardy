@@ -5,6 +5,11 @@
  */
 package beans;
 
+import com.fasterxml.jackson.jr.ob.JSON;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author betoesquivel
@@ -22,7 +27,7 @@ public class Class {
         this.id = id;
         this.name = name;
     }
-
+    
     public int getId() {
         return id;
     }

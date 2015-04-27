@@ -30,6 +30,12 @@ ko.extenders.logChange = function(target, element) {
     // toda la fila
     object = element.object;
     type = element.type;
+    
+    console.log("entering the subscribe test 4 function");
+
+    var data = new Object();
+    data.type = type;
+    data.object = ko.toJSON(object);
     switch(type){
       case 'Question':
         console.log(object.id + ": " + object.question());
@@ -39,8 +45,25 @@ ko.extenders.logChange = function(target, element) {
         break;
       case 'Class':
         console.log(object.id + ": " + object.name());
+        console.log("Clase");
         break;
     }
+    console.log(data);
+    console.log(JSON.stringify(data));
+    $.ajax({
+      url: "ManageAssets",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      mimeType: 'application/json',
+    }).done(function(data){
+        console.log(data);
+        object.id = data.id;
+    }).fail(function(data){
+        console.log("ERROR");
+        console.log(data);
+    });
   });
 
 };
