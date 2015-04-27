@@ -116,6 +116,7 @@ public class GameDBHandler {
             }
             statement.close();
             return questions;
+
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
