@@ -33,37 +33,55 @@ public class AssetDBHandler {
         }
     }
     
-    public void createQuestion(Question q) {
+    public int createQuestion(Question q) {
         try {
             statement = connection.createStatement();
             // el id del user no importa porque tiene Autoincrement.
             String query = "insert into Question (question, answer, difficulty, categoryId) values ('%s', '%s', %d, %d);";
-            statement.executeUpdate(String.format(query, q.getQuestion(), q.getAnswer(), q.getLevel(), q.getFkCategory()));
+            statement.executeUpdate(String.format(query, q.getQuestion(), q.getAnswer(), q.getLevel(), q.getFkCategory()),
+            Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getResultSet();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
             statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return -1;
     }
-    public void createCategory(Category c) {
+    public int createCategory(Category c) {
         try {
             statement = connection.createStatement();
             // el id del user no importa porque tiene Autoincrement.
             String query = "insert into Category (name, classId) values ('%s', %d);";
-            statement.executeUpdate(String.format(query, c.getName(), c.getFkClass()));
+            statement.executeUpdate(String.format(query, c.getName(), c.getFkClass()),
+                    Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } 
             statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return -1;
     }
-    public void createClass(Class c) {
+    public int createClass(Class c) {
         try {
             statement = connection.createStatement();
             String query = "insert into Class (name) values ('%s');";
-            statement.executeUpdate(String.format(query, c.getName()));
+            statement.executeUpdate(String.format(query, c.getName()),
+            Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getResultSet();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
             statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return -1;
     }
     
     public void updateQuestion(Question q) {
@@ -102,7 +120,7 @@ public class AssetDBHandler {
             int id = c.getId();
             String name = c.getName();
             
-            String query = "UPDATE Category SET name='%s' WHERE id=%d";
+            String query = "UPDATE Class SET name='%s' WHERE id=%d";
             statement.executeUpdate(String.format(query, name, id));
             statement.close();
         } catch (SQLException ex) {

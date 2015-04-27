@@ -13,6 +13,7 @@ import dbhandlers.AssetDBHandler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -88,20 +89,36 @@ public class ManageAssetsServlet extends HttpServlet {
         String classType = (String) map.get("type");
         String objectJSON = (String) map.get("object");
         //Check class of object sent
-        switch((String)map.get("type")){
+        switch(classType){
             case "Question":
                 Question receivedQuestion = JSON.std.beanFrom(Question.class, objectJSON);
+                if (receivedQuestion.getId() == -1) {
+                    assetDB.createQuestion(receivedQuestion);
+                }else {
+                    assetDB.updateQuestion(receivedQuestion);
+                }
                 break;
             case "Category":
                 Category receivedCategory = JSON.std.beanFrom(Category.class, objectJSON);
+                if (receivedCategory.getId() == -1) {
+                    assetDB.createCategory(receivedCategory);
+                }else {
+                    assetDB.updateCategory(receivedCategory);
+                }
                 break;
             case "Class":
                 Class receivedClass = JSON.std.beanFrom(Class.class, objectJSON);
+                if (receivedClass.getId() == -1) {
+                    assetDB.createClass(receivedClass);
+                }else {
+                    assetDB.updateClass(receivedClass);
+                }
                 break;
         }
-        //check id in map
-        //if id is -1, call create in AssetsDBHandler
-        //else, call update in AssetsDBHandler
+        response.setContentType("application/json");
+        PrintWriter out = new PrintWriter(response.getOutputStream());
+        out.write(1);
+        
         
     }
 

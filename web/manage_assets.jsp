@@ -129,13 +129,15 @@
 
   <script src="js/vendor/jquery.js"></script>
   <script src="js/vendor/knockout-3.3.0.js"></script>
+  
   <script src="js/custom_knockout_extenders.js"></script>
   <script src="js/foundation.min.js"></script>
   <script src="js/sample_data.js"></script>
   <script>
-    var questionsJSON = ${questionsJSON};
-    var categoriesJSON = ${categoriesJSON};
-    var classesJSON = ${classesJSON};
+      
+    var questionsJSON = '${questionsJSON}';
+    var categoriesJSON = '${categoriesJSON}';
+    var classesJSON = '${classesJSON}';
     
     var server_questions = JSON.parse(questionsJSON);
     var server_categories = JSON.parse(categoriesJSON);

@@ -69,6 +69,7 @@ function AssetsViewModel() {
     name: 'Class name',
   };
 
+
   self.selectedClassCategory = ko.observable();
   self.selectedClassQuestion = ko.observable();
   self.selectedCategoryQuestion = ko.observable();

@@ -14,6 +14,7 @@
     <body>
         <h1>Pick something to do: </h1>
         <a href="jeopardy.html">Play Jeopardy!</a><br>
+        <a href="ManageAssets">Manage questions, categories, and classes (Create, Edit, Delete)</a><br>
         <a href="create_game_profile.jsp">Create game profile</a><br>
         <a href="#">See statistics</a><br>
         
