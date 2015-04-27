@@ -36,6 +36,7 @@ ko.extenders.logChange = function(target, element) {
     var data = new Object();
     data.type = type;
     data.object = ko.toJSON(object);
+    data.action = "update";
     switch(type){
       case 'Question':
         console.log(object.id + ": " + object.question());
@@ -64,6 +65,8 @@ ko.extenders.logChange = function(target, element) {
         console.log("ERROR");
         console.log(data);
     });
+    
+    
   });
 
 };
