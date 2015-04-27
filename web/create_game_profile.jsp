@@ -6,13 +6,19 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="beans.Category"%>
-<%@page import="dbhandlers.ContentDBHandler"%>
+<%@page import="dbhandlers.GameProfileDBHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create a game profile</title>
+        <style>
+            fieldset {
+                width: 50%;
+                border: 2px solid black;
+            }
+        </style>
     </head>
     <body>
         <center>
@@ -20,13 +26,13 @@
                 <legend>Select the class for the game profile</legend>
                 
                 <%
-                    ContentDBHandler accessDB = new ContentDBHandler();
+                    GameProfileDBHandler accessDB = new GameProfileDBHandler();
                     ArrayList<Category> categoriesList;
                     String cat = accessDB.getCategoryByName("TCP").getName();
                     categoriesList = accessDB.getAllCategories();
                     out.println("<h1>"+categoriesList.size()+"</h1>");
                     out.println("<select>");
-                    out.println("<option value=\""+cat+"\">"+ cat+"</option>");
+                    out.println("<option selected=\"selected\" disabled=\"disabled\"> Select a class </option>");
                     
                     for(int i=0; i<categoriesList.size(); i++) {
                         String name = categoriesList.get(i).getName();

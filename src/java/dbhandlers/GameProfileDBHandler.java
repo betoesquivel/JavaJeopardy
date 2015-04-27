@@ -6,6 +6,8 @@
 package dbhandlers;
 
 import beans.Category;
+import beans.GameProfile;
+import beans.Question;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,16 +21,50 @@ import java.util.logging.Logger;
  *
  * @author hlg
  */
-public class ContentDBHandler {
+public class GameProfileDBHandler {
     
     public Connection connection;
     public Statement statement;
     
-    public ContentDBHandler() {
+    public GameProfileDBHandler() {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost/jeopardy", "root", "");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    public GameProfile createGameProfile(GameProfile game) {
+        try {
+            Statement statement = connection.createStatement();
+            String name = game.getName();
+            int userId = game.getId();
+            String query = "insert into GameProfile (name, userId) values ('" + name + "'," + userId + ")";
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            if(rs.next()) {
+                game.setId(rs.getInt(1));
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GameProfileDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return game;
+    }
+    
+    public void createQuestionsGameProfile(GameProfile game, ArrayList<Question> questions) {
+        Question q;
+        for(int i=0; i<questions.size(); i++) {
+            q = questions.get(i);
+            try {
+                statement = connection.createStatement();
+                String query = "INSERT INTO QuestionGameProfile (questionId, gameProfileId) values (" + q.getId() + "," + game.getId() + ")";
+                statement.executeUpdate(query);
+                statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(GameProfileDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -44,7 +80,7 @@ public class ContentDBHandler {
             }
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ContentDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameProfileDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         return c;
     }
@@ -63,7 +99,7 @@ public class ContentDBHandler {
             }
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ContentDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameProfileDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         return c;
     }
@@ -88,7 +124,7 @@ public class ContentDBHandler {
             }
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ContentDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GameProfileDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         if(!existeUno) {
