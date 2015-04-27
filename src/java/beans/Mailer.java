@@ -10,8 +10,8 @@ public static void send(String to,String subject,String msg){
 
 
         try{
-            final String fromEmail = "luisreyna93@gmail.com"; //requires valid gmail id
-            final String password = ""; // correct password for gmail id
+            final String fromEmail = "javajeopardy@gmail.com"; //requires valid gmail id
+            final String password = "ElProyector1"; // correct password for gmail id
             final String toEmail = to; // can be any email id 
 
             System.out.println("TLSEmail Start");
