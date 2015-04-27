@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Pick something to do: </h1>
-        <a href="jeopardy.html">Play Jeopardy!</a><br>
+        <a href="gameServlet?action=start">Play Jeopardy!</a><br>
         <a href="create_game_profile.jsp">Create game profile</a><br>
         <a href="#">See statistics</a><br>
         
