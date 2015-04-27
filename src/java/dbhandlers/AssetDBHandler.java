@@ -140,9 +140,12 @@ public class AssetDBHandler {
         }
     }
     public void deleteCategory(int id) {
+        ArrayList<Question> categoryQuestions = getCategoryQuestions(id);
+        for (Question q : categoryQuestions){
+            deleteQuestion(q.getId());
+        }
         try {
             statement = connection.createStatement();
-            
             String query = "DELETE FROM Category WHERE id=%d";
             statement.executeUpdate(String.format(query, id));
             statement.close();
@@ -151,6 +154,10 @@ public class AssetDBHandler {
         }
     }
     public void deleteClass(int id) {
+        ArrayList<Category> classCategories = getClassCategories(id);
+        for (Category c : classCategories){
+            deleteCategory(c.getId());
+        }
         try {
             statement = connection.createStatement();
             
@@ -185,6 +192,28 @@ public class AssetDBHandler {
         }
         return questions;
     }
+    public ArrayList<Question> getCategoryQuestions(int categoryId){
+        Question q;
+        ArrayList<Question> questions = new ArrayList<Question>();
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT id, question, answer, difficulty, categoryId FROM Question WHERE categoryId=%d;";
+            ResultSet result = statement.executeQuery(String.format(query, categoryId));
+            while(result.next()) {
+                int id = result.getInt("id");
+                String question = result.getString("question");
+                String answer = result.getString("answer");
+                int difficulty = result.getInt("difficulty");
+                
+                q = new Question(id, question, answer, difficulty, categoryId);
+                questions.add(q);
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return questions;
+    }
     public ArrayList<Category> getCategories(){
         Category c;
         ArrayList<Category> categories = new ArrayList<Category>();
@@ -198,6 +227,27 @@ public class AssetDBHandler {
                 int classId = result.getInt("classId");
 
                 c = new Category(id, name, classId);
+                categories.add(c);
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return categories;
+    }
+    public ArrayList<Category> getClassCategories(int classId){
+        Category c;
+        ArrayList<Category> categories = new ArrayList<Category>();
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT id, name, classId FROM Category WHERE classId=%d;";
+            ResultSet result = statement.executeQuery(String.format(query,classId));
+            while(result.next()) {
+                int id = result.getInt("id");
+                String name = result.getString("name");
+                int cId = result.getInt("classId");
+
+                c = new Category(id, name, cId);
                 categories.add(c);
             }
             statement.close();

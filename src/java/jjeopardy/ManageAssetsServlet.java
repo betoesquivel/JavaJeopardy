@@ -86,6 +86,25 @@ public class ManageAssetsServlet extends HttpServlet {
         }
         //Parse to a map
         Map<String, Object> map = JSON.std.mapFrom(json);
+        
+        String action = (String) map.get("action");
+        
+        int id = -1;
+        if (action.equalsIgnoreCase("delete")){
+            id = deleteRow(map);
+        }else {
+            id = updateRow(map);
+        }
+
+        response.setContentType("application/json");
+        PrintWriter out = new PrintWriter(response.getWriter());
+        out.print(String.format("{\"id\":%d}",id));
+        out.close();
+        
+        
+    }
+
+    public int updateRow(Map<String, Object> map) throws IOException{
         String classType = (String) map.get("type");
         String objectJSON = (String) map.get("object");
         int id = -1;
@@ -119,14 +138,33 @@ public class ManageAssetsServlet extends HttpServlet {
                 }
                 break;
         }
-        response.setContentType("application/json");
-        PrintWriter out = new PrintWriter(response.getWriter());
-        out.print(String.format("{\"id\":%d}",id));
-        out.close();
         
-        
+        return id;
     }
-
+    
+    public int deleteRow(Map<String, Object> map) throws IOException{
+        String classType = (String) map.get("type");
+        int id = (int) map.get("object");
+        //Check class of object sent
+        switch(classType){
+            case "Question":
+                if (id != -1) {
+                    assetDB.deleteQuestion(id);
+                }
+                break;
+            case "Category":
+                if (id != -1) {
+                    assetDB.deleteCategory(id);
+                }
+                break;
+            case "Class":
+                if (id != -1) {
+                    assetDB.deleteClass(id);
+                }
+        }
+        
+        return id;
+    }
     /**
      * Returns a short description of the servlet.
      *

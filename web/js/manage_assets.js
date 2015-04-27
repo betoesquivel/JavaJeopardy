@@ -152,33 +152,74 @@ function AssetsViewModel() {
   // delete
   self.deleteQuestion = function(id) {
 
-    self.questions.remove(function(question){
-      return id == question.id;
+    var data = new Object();
+    data.type = "Question";
+    data.object = id;
+    data.action = "delete";
+    $.ajax({
+      url: "ManageAssets",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      mimeType: 'application/json',
+    }).done(function(data){
+        console.log(data);
+        self.questions.remove(function(question){
+            return id == question.id;
+        });
+    }).fail(function(data){
+        console.log("ERROR deleting question");
+        console.log(data);
     });
-
+    
   };
   self.deleteCategory = function(id) {
 
-    ko.utils.arrayForEach(self.questions(), function(question) {
-      if (id == question.fkCategory){
-        self.deleteQuestion(question.id);
-      }
+    var data = new Object();
+    data.type = "Category";
+    data.object = id;
+    data.action = "delete";
+    $.ajax({
+      url: "ManageAssets",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      mimeType: 'application/json',
+    }).done(function(data){
+        console.log(data);
+        self.categories.remove(function(category) {
+          return id == category.id;
+        });
+    }).fail(function(data){
+        console.log("ERROR deleting category");
+        console.log(data);
     });
-    self.categories.remove(function(category) {
-      return id == category.id;
-    });
-
+    
   };
+  
   self.deleteClass = function(id) {
 
-    console.log('deleting class');
-    ko.utils.arrayForEach(self.categories(), function(category) {
-      if (id == category.fkClass){
-        self.deletecategory(category.id);
-      }
-    });
-    self.classes.remove(function(classToDelete) {
-      return id == classToDelete.id;
+    var data = new Object();
+    data.type = "Class";
+    data.object = id;
+    data.action = "delete";
+    $.ajax({
+      url: "ManageAssets",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      mimeType: 'application/json',
+    }).done(function(data){
+        console.log(data);
+        self.classes.remove(function(classToRemove) {
+          return id == classToRemove.id;
+        });
+    }).fail(function(data){
+        console.log("ERROR deleting class");
+        console.log(data);
     });
 
   };
