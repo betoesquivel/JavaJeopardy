@@ -40,7 +40,7 @@ public class AssetDBHandler {
             String query = "insert into Question (question, answer, difficulty, categoryId) values ('%s', '%s', %d, %d);";
             statement.executeUpdate(String.format(query, q.getQuestion(), q.getAnswer(), q.getLevel(), q.getFkCategory()),
             Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = statement.getResultSet();
+            ResultSet rs = statement.getGeneratedKeys();
             if (rs.next()) {
                 return rs.getInt(1);
             }
@@ -73,8 +73,8 @@ public class AssetDBHandler {
             String query = "insert into Class (name) values ('%s');";
             statement.executeUpdate(String.format(query, c.getName()),
             Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = statement.getResultSet();
-            if (rs.next()) {
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs != null && rs.next()) {
                 return rs.getInt(1);
             }
             statement.close();

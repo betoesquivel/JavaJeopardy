@@ -88,36 +88,41 @@ public class ManageAssetsServlet extends HttpServlet {
         Map<String, Object> map = JSON.std.mapFrom(json);
         String classType = (String) map.get("type");
         String objectJSON = (String) map.get("object");
+        int id = -1;
         //Check class of object sent
         switch(classType){
             case "Question":
                 Question receivedQuestion = JSON.std.beanFrom(Question.class, objectJSON);
-                if (receivedQuestion.getId() == -1) {
-                    assetDB.createQuestion(receivedQuestion);
+                id = receivedQuestion.getId();
+                if (id == -1) {
+                    id = assetDB.createQuestion(receivedQuestion);
                 }else {
                     assetDB.updateQuestion(receivedQuestion);
                 }
                 break;
             case "Category":
                 Category receivedCategory = JSON.std.beanFrom(Category.class, objectJSON);
-                if (receivedCategory.getId() == -1) {
-                    assetDB.createCategory(receivedCategory);
+                id = receivedCategory.getId();
+                if (id == -1) {
+                    id = assetDB.createCategory(receivedCategory);
                 }else {
                     assetDB.updateCategory(receivedCategory);
                 }
                 break;
             case "Class":
                 Class receivedClass = JSON.std.beanFrom(Class.class, objectJSON);
-                if (receivedClass.getId() == -1) {
-                    assetDB.createClass(receivedClass);
+                id = receivedClass.getId();
+                if (id == -1) {
+                    id = assetDB.createClass(receivedClass);
                 }else {
                     assetDB.updateClass(receivedClass);
                 }
                 break;
         }
         response.setContentType("application/json");
-        PrintWriter out = new PrintWriter(response.getOutputStream());
-        out.write(1);
+        PrintWriter out = new PrintWriter(response.getWriter());
+        out.print(String.format("{\"id\":%d}",id));
+        out.close();
         
         
     }
