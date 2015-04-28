@@ -189,7 +189,7 @@ function GameProfileViewModel() {
     for (var i = 1, l = 5; i <= l; i ++) {
       var questionsArrayName = baseName + i;
       var categoryQuestions = self[questionsArrayName]();
-      if (categoryQuestions.length != self.questionsPerCategory()) {
+      if (categoryQuestions.length != self.questionsPerCategory) {
         return false;
       }
     }
@@ -206,7 +206,7 @@ function GameProfileViewModel() {
     questions = questions.concat(ko.toJS(self.selectedQuestions5()));
 
     console.log(questions);
-    data.questions = JSON.stringify(questions);
+    data.questions = questions;
     data.name = self.name();
 
     $.ajax({

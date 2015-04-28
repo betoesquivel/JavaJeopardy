@@ -87,9 +87,7 @@ public class GameProfileServlet extends HttpServlet {
         //Parse to a map
         Map<String, Object> map = JSON.std.mapFrom(json);
         String name = (String) map.get("name");
-        String questionsJSON = (String) map.get("questions");
-        ArrayList<Question> questions = (ArrayList<Question>)JSON.std.listOfFrom(
-                Question.class, questionsJSON);
+        ArrayList<String> questions = (ArrayList) map.get("questions");
         
         int id = -1;
 
