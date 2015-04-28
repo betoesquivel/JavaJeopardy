@@ -334,9 +334,13 @@
   <script src="js/foundation.min.js"></script>
   <script src="js/sample_data.js"></script>
   <script>
-    //var server_questions = JSON.parse(questionsJSON);
-    //var server_categories = JSON.parse(categoriesJSON);
-    //var server_classes = JSON.parse(classesJSON);
+    var questionsJSON = '${questionsJSON}';
+    var categoriesJSON = '${categoriesJSON}';
+    var classesJSON = '${classesJSON}';
+    
+    var server_questions = JSON.parse(questionsJSON);
+    var server_categories = JSON.parse(categoriesJSON);
+    var server_classes = JSON.parse(classesJSON);
   </script>
   <script src="js/custom_knockout_extenders.js"></script>
   <script src="js/create_game_profile.js"></script>
