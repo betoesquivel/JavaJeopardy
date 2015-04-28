@@ -5,8 +5,10 @@
  */
 package jjeopardy;
 
+import beans.Mailer;
 import dbhandlers.AccountDBHandler;
 import java.io.IOException;
+import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,11 +42,16 @@ public class SignInServlet extends HttpServlet {
         
         
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        
+        //String uuid = UUID.randomUUID().toString();
+        String password = UUID.randomUUID().toString();
+        password= password.substring(0, 5);
         String email = request.getParameter("email");
         
         if (username != null && password != null && email != null) {
             accountDB.createUser(username, password, email);
+            
+            Mailer.send(email, "Jeopardy", "Your password is: " + password);
         }
         
         RequestDispatcher rd = request.getRequestDispatcher(url);

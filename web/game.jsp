@@ -32,10 +32,23 @@
     </head>
 
     <body>
-        <% String t1 = request.getParameter("team1Name"); String t2 = request.getParameter("team2Name"); %>
+        <% String t1 = request.getParameter("team1Name");
+        String t2 = request.getParameter("team2Name"); 
+        
+        int t1I = (Integer)(request.getAttribute("t1I"));
+        int t2I =(Integer) (request.getAttribute("t2I"));
+        
+        
+        int gId = (Integer)(request.getAttribute("gI"));
+            
+        
+        %>
         
         <input id="t1" type="hidden" value="<%= t1 %>" />
         <input id="t2" type="hidden" value="<%= t2 %>" />
+        <input id="gameId" type="hidden" value="<%= gId %>" />
+        <input id="team1Id" type="hidden" value="<%= t1I %>" />
+        <input id="team2Id" type="hidden" value="<%= t2I %>" />
         <%
             List<Question> questions = (ArrayList<Question>) request.getAttribute("questions");
             int i = 0;
@@ -45,15 +58,15 @@
             <thead>
                 <tr>
 
-                    <th>Tables</th>
+                    <th><%  out.print(questions.get(1).getCategory());%></th>
 
-                    <th>Image Maps</th>
+                    <th><%  out.print(questions.get(6).getCategory());%></th>
 
-                    <th>Forms</th>
+                    <th><%  out.print(questions.get(11).getCategory());%></th>
 
-                    <th>CSS</th>
+                    <th><%  out.print(questions.get(16).getCategory());%></th>
 
-                    <th>Multimedia</th>
+                    <th><%  out.print(questions.get(21).getCategory());%></th>
 
                 </tr>		
             </thead>

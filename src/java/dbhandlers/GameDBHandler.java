@@ -58,17 +58,56 @@ public class GameDBHandler {
         }
         return null;
     }
-
-    public int saveTeam(String e, String[] eP, String e2, String[] eP2) {
+  public int saveGame(int g, int t1, int t2, int s1, int s2) {
         try {
+             statement = connection.createStatement();
+           int winner=0;
+           if(s1>s2)
+               winner=t1;
+           else
+               winner=t2;
+           if(s1==s2){
+               
+            String query = "UPDATE gameresults set winner='%d' WHERE id=%d";
+            statement.executeUpdate(String.format(query, 0, g));
+           }else {
+            String query = "UPDATE gameresults set winner='%d' WHERE id=%d";
+            statement.executeUpdate(String.format(query, winner, g));
+           }
+            String query = "UPDATE team set score='%d' WHERE id=%d";
+            statement.executeUpdate(String.format(query, s1, t1));
+            query = "UPDATE team set score='%d' WHERE id=%d";
+            statement.executeUpdate(String.format(query, s2, t2));
+            statement.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    public int[] saveTeam(String e, String[] eP, String e2, String[] eP2) {
+        try {
+            int [] ids=new int[3];
             statement = connection.createStatement();
             Date d = new Date();
             String newstring = new SimpleDateFormat("yyyy-MM-dd").format(d);
             // el id del user no importa porque tiene Autoincrement.
             String query = "insert into gameresults (winner, date) values ('" + 0 + "', '" + newstring + "');";
-            int id1 = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            int id1 = 0;
+            if (rs.next()) {
+                id1 = rs.getInt(1);
+            }
+            ids[0]= id1;
             query = "insert into team (gameId, name) values ('" + id1 + "', '" + e + "');";
             int id = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            rs = statement.getGeneratedKeys();
+            id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            ids[1]=id;
             for (String s : eP) {
                 if (s.equals("")) {
                     continue;
@@ -80,6 +119,12 @@ public class GameDBHandler {
             //2
             query = "insert into team (gameId, name) values ('" + id1 + "', '" + e2 + "');";
             id = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+             rs = statement.getGeneratedKeys();
+            id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            ids[2]=id;
             for (String s : eP2) {
                 if (s.equals("")) {
                     continue;
@@ -89,11 +134,11 @@ public class GameDBHandler {
 
             }
             statement.close();
-            return id1;
+            return ids;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return null;
     }
 
     public List<Question> getQuestions(int id) {
@@ -101,7 +146,7 @@ public class GameDBHandler {
             statement = connection.createStatement();
             // el id del user no importa porque tiene Autoincrement.
             String query = "select * from questiongameprofile LEFT OUTER JOIN question\n"
-                    + "ON questiongameprofile.questionId=question.id where gameProfileId = '%s';";
+                    + "ON questiongameprofile.questionId=question.id LEFT OUTER JOIN category ON question.categoryId=category.id where gameProfileId = '%s';";
 
             ResultSet rs = statement.executeQuery(String.format(query, id));
             List<Question> questions = new ArrayList<>();
@@ -111,12 +156,12 @@ public class GameDBHandler {
                 q.setAnswer(rs.getString("answer"));
                 q.setQuestion(rs.getString("question"));
                 q.setLevel(rs.getInt("difficulty"));
+                q.setCategory(rs.getString("name"));
 
                 questions.add(q);
             }
             statement.close();
             return questions;
-
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
