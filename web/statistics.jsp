@@ -4,6 +4,7 @@
     Author     : LuisAlberto
 --%>
 
+<%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="beans.Team"%>
@@ -18,18 +19,36 @@
     </head>
     <body>
         <div class="row">
-            <h1 class="columns">Resultados!</h1>
+            <h1 class="columns">Results!</h1>
         </div>
         
         <div class="row">
+            <h2 class="columns">Team statistics</h2>
+        </div>
+        <div class="row">
             <table class="columns">
-            <th>Equipo</th>
-            <th>Puntos</th>
-            <th>Ganados</th>
+            <th>Team name</th>
+            <th>Score</th>
+            <th>Wins</th>
             <%
             List<Team> result = (ArrayList<Team>) request.getAttribute("results");
                 for(Team t:result )
                     out.print("<tr><td>"+t.getName()+"</td><td>"+t.getScore()+"</td><td>"+t.getWins()+"</td></tr>");
+            %>
+            </table>
+        </div>
+        <div class="row">
+            <h2 class="columns">Player statistics</h2>
+        </div>
+        <div class="row">
+            <table class="columns">
+            <th>Player name</th>
+            <th>Score</th>
+            <th>Wins</th>
+            <%
+            ArrayList<Map<String, Object>> userResults = (ArrayList<Map<String, Object>>) request.getAttribute("userResults");
+                for(Map<String, Object> m:userResults )
+                    out.print("<tr><td>"+(String)m.get("name")+"</td><td>"+(int)m.get("score")+"</td><td>"+(int)m.get("wins")+"</td></tr>");
             %>
             </table>
         </div>

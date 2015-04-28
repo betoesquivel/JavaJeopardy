@@ -10,9 +10,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Account Blocked Page</title>
+        <link rel="stylesheet" href="css/foundation.css"/>
     </head>
     <body>
-        <h1>Your failed your 3 login attempts. Your account is blocked. </h1>
-        <a href="login.jsp">Log In</a><br>
+        <div class="row">
+            <h3 class="columns alert-box alert">You failed your 3 login attempts. Your account is blocked. </h3>
+        </div>
+        <div class="row">
+            <a class="button large-6 large-offset-3 end columns" href="login.jsp">Log In</a><br>
+        </div>
+        
+
+        
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
     </body>
 </html>

@@ -14,10 +14,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -76,6 +77,32 @@ public class GameDBHandler {
             }
             statement.close();
             return profiles;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public ArrayList<Map<String, Object>> getUserResults() {
+        try {
+            statement = connection.createStatement();
+            // el id del user no importa porque tiene Autoincrement.
+            String query = "SELECT p.name as name, sum(t.score) as score, sum(if(g.winner=p.id, 1, 0)) as wins " +
+                           "FROM team t join participant p on t.id=p.teamId join gameresults g on t.gameId=g.id " +
+                           "GROUP BY p.name";
+
+            ResultSet rs = statement.executeQuery(query);
+            ArrayList<Map<String,Object>> userResults = new ArrayList<Map<String,Object>>();
+            while (rs.next()) {
+                Map<String, Object> result  = new HashMap<String, Object>();
+                
+                result.put("name", rs.getString("name"));
+                result.put("score", rs.getInt("score"));
+                result.put("wins", rs.getInt("wins"));
+                
+                userResults.add(result);
+            }
+            statement.close();
+            return userResults;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

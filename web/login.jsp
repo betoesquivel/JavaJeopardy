@@ -49,9 +49,9 @@
         <div class="row">
             <form action="Login" method="POST" class="large-6 large-offset-3 end columns">
                 Enter Username:  <input type="text" name="username" value="" />
-                <br><br>
+                <br>
                 Enter Password: <input type="password" name="password" value="" />
-                <br><br>
+                <br>
                 <input class="button" type="submit" name="login" value="Log In">
             </form>    
         </div>
