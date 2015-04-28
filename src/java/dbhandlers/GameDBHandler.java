@@ -7,6 +7,7 @@ package dbhandlers;
 
 import beans.GameProfile;
 import beans.Question;
+import beans.Team;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.DriverManager;
@@ -50,6 +51,28 @@ public class GameDBHandler {
                 prof.setId(Integer.parseInt(rs.getString("id")));
                 prof.setName(rs.getString("name"));
                 profiles.add(prof);
+            }
+            statement.close();
+            return profiles;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public List<Team> results() {
+        try {
+            statement = connection.createStatement();
+            // el id del user no importa porque tiene Autoincrement.
+            String query = "select name,SUM(score) as score, count(winner) as wins from team left join gameresults on gameresults.winner=team.id group by name;";
+
+            ResultSet rs = statement.executeQuery(query);
+            List<Team> profiles = new ArrayList<>();
+            while (rs.next()) {
+                Team t = new Team();
+                t.setName(rs.getString("name"));
+                t.setScore(rs.getInt("score"));
+                t.setWins(rs.getInt("wins"));
+                profiles.add(t);
             }
             statement.close();
             return profiles;

@@ -12,6 +12,8 @@ package beans;
 public class Team {
     private int id;
     private String name;
+    private int score;
+    private int wins;
 
     public Team() {
     }
@@ -35,5 +37,33 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the score
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * @param score the score to set
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * @return the wins
+     */
+    public int getWins() {
+        return wins;
+    }
+
+    /**
+     * @param wins the wins to set
+     */
+    public void setWins(int wins) {
+        this.wins = wins;
     }
 }
