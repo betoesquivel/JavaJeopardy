@@ -23,7 +23,7 @@
         <%
           if(session.getAttribute("statusLoginAttempt") != null) {
               
-              if( session.getAttribute("statusLoginAttempt").equals("fail")) {
+              if( ((String)session.getAttribute("statusLoginAttempt")).equalsIgnoreCase("fail")) {
                   int i = 3 - ((int)session.getAttribute("loginAttempts"));
                   out.println("<h3>Wrong password, try again. You have " + i + " left </h3>");
               } else if (session.getAttribute("statusLoginAttempt").equals("invalidAccount")) {

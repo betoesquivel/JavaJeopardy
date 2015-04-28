@@ -39,8 +39,6 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        session.invalidate();
-        
         String url = "login.jsp";
         
         
@@ -55,13 +53,13 @@ public class LoginServlet extends HttpServlet {
         }else if ( (user = accountDB.validateUsernamePassword(username, password) ) == null) {
             if(session.getAttribute("loginAttempts") != null) {
                 int attempts = (int) session.getAttribute("loginAttempts");
-                attempts++;
+                attempts += 1;
                 session.setAttribute("loginAttempts", attempts);
                 if(attempts == 3) {
                     url = "accountBlocked.jsp";
                 }
             } else {
-                session.setAttribute("loginAttempts", 0);
+                session.setAttribute("loginAttempts", 1);
             }
             session.setAttribute("statusLoginAttempt", "fail");
         }else {
