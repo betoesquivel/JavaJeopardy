@@ -7,9 +7,10 @@ package jjeopardy;
 
 import beans.GameProfile;
 import beans.Question;
+import dbhandlers.AssetDBHandler;
 import dbhandlers.GameDBHandler;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,8 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 public class GameServlet extends HttpServlet {
 
         GameDBHandler gameDB;
+        AssetDBHandler assetDB;
     public void init() throws ServletException {
         gameDB = new GameDBHandler();
+        assetDB = new AssetDBHandler();
     }
     /**
 
@@ -57,7 +60,7 @@ public class GameServlet extends HttpServlet {
             String [] eP2=request.getParameterValues("team2");
             int[] ids=gameDB.saveTeam(e1,eP,e2,eP2);
             int id = Integer.parseInt(request.getParameter("id"));
-            List<Question> questions= gameDB.getQuestions(id);
+            ArrayList<Question> questions= assetDB.getGameProfileQuestions(id);
             request.setAttribute("questions", questions);
             request.setAttribute("gI", ids[0]);
             request.setAttribute("t1I", ids[1]);

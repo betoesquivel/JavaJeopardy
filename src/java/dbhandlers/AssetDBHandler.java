@@ -214,6 +214,35 @@ public class AssetDBHandler {
         }
         return questions;
     }
+    public ArrayList<Question> getGameProfileQuestions(int gameProfileId){
+        Question q;
+        ArrayList<Question> questions = new ArrayList<Question>();
+        try {
+            statement = connection.createStatement();
+            String query = "select q.id as id, q.question as question, q.answer as answer, "
+                    + "q.difficulty as difficulty, q.categoryId as categoryId, c.name as name "
+                    + "from QuestionGameProfile gp join Question q on gp.questionId=q.id "
+                    + "join Category c on q.categoryId=c.id "
+                    + "where gp.gameProfileId=%d";
+            ResultSet result = statement.executeQuery(String.format(query, gameProfileId));
+            while(result.next()) {
+                int id = result.getInt("id");
+                String question = result.getString("question");
+                String answer = result.getString("answer");
+                int difficulty = result.getInt("difficulty");
+                int categoryId = result.getInt("categoryId");
+                String category = result.getString("name");
+                
+                q = new Question(id, question, answer, difficulty, categoryId);
+                q.setCategory(category);
+                questions.add(q);
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return questions;
+    }
     public ArrayList<Category> getCategories(){
         Category c;
         ArrayList<Category> categories = new ArrayList<Category>();
