@@ -37,7 +37,7 @@
             <div class="editor">
               <div class="view" data-bind="visible: name.editing() == false, event: { dblclick: name.edit }, text: name() || 'Double click to edit'"></div>
               <input class="edit" type="text" data-bind="visible: name.editing(), value: name, event: {blur: name.stopEditing}" />
-              <a class="" href="#" data-bind="visible: name.editing() == false, click: function(data, event) { $root.deleteClass(id); }">delete</a>
+              <a class="" href="#" data-bind="visible: name.editing() == false, click: function(data, event) { $root.deleteClass(id()) }">delete</a>
             </div>
           </td>
         </tr>
@@ -55,7 +55,7 @@
             <div class="editor">
               <div class="view" data-bind="visible: name.editing() == false, event: { dblclick: name.edit }, text: name() || 'Double click to edit'"></div>
               <input class="edit" type="text" data-bind="visible: name.editing(), value: name, event: {blur: name.stopEditing}" />
-              <a class="" href="#" data-bind="visible: name.editing() == false, click: function(data, event) { $root.deleteCategory($root.selectedClassCategory(), id); }">delete</a>
+              <a class="" href="#" data-bind="visible: name.editing() == false, click: function(data, event) { $root.deleteCategory(id); }">delete</a>
             </div>
           </td>
         </tr>
@@ -65,7 +65,7 @@
   <div class="row add-buttons">
     <button class="large-offset-1 medium-offset-1 small-offset-1 large-4 medium-4 small-4 columns" data-bind="click: addClass">Add a class</button>
     <button class="large-offset-2 medium-offset-2 small-offset-2 large-4 medium-4 small-4 end columns" 
-      data-bind="click: addCategory($root.selectedClassCategory()), visible: selectedClassCategory">Add a category</button>
+      data-bind="click: addCategory(selectedClassCategory()), visible: selectedClassCategory">Add a category</button>
   </div>
 
   <div class="row section-header">
@@ -115,7 +115,7 @@
             <div class="editor">
               <div class="view" data-bind="visible: level.editing() == false, event: { dblclick: level.edit }, text: level() || 'Double click to edit'"></div>
               <input class="edit" type="text" data-bind="visible: level.editing(), value: level, event: {blur: level.stopEditing}" />
-              <a class="" href="#" data-bind="visible: $root.isEditingQuestion, click: function(data, event) { $root.deleteQuestion(id); }">delete</a>
+              <a class="" href="#" data-bind="visible: !isEditingQuestion(), click: function(data, event) { $root.deleteQuestion(id); }">delete</a>
             </div>
           </td>
         </tr>

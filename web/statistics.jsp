@@ -13,10 +13,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Statistics</title>
+        <link rel="stylesheet" href="css/foundation.css"/>
+
     </head>
     <body>
-        <h1>Resultados!</h1>
-        <table>
+        <div class="row">
+            <h1 class="columns">Resultados!</h1>
+        </div>
+        
+        <div class="row">
+            <table class="columns">
             <th>Equipo</th>
             <th>Puntos</th>
             <th>Ganados</th>
@@ -25,6 +31,10 @@
                 for(Team t:result )
                     out.print("<tr><td>"+t.getName()+"</td><td>"+t.getScore()+"</td><td>"+t.getWins()+"</td></tr>");
             %>
-        </table>
+            </table>
+        </div>
+        
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
     </body>
 </html>

@@ -10,14 +10,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home Page</title>
+        <link rel="stylesheet" href="css/foundation.css"/>
     </head>
     <body>
-        <h1>Pick something to do: </h1>
-        <a href="gameServlet?action=start">Play Jeopardy!</a><br>
-        <a href="GameProfile">Create game profile</a><br>
-        <a href="ManageAssets">Create, edit, delete assets (questions, categories, classes)</a>
-        <a href="results">See statistics</a><br>
+        <div class="row">
+            <h1 class="large-6 large-offset-3 end columns">Pick something to do: </h1>
+        </div>
+        <div class="row">
+            <ul class="side-nav large-6 large-offset-3 end columns" role="navigation" title="Menu">
+                <li>
+                    <a href="gameServlet?action=start">Play Jeopardy!</a>
+                </li>
+                <li>
+                    <a href="GameProfile">Create game profile</a>
+                </li>
+                <li>
+                    <a href="ManageAssets">Create, edit, delete assets (questions, categories, classes)</a>
+                </li>
+                <li>
+                    <a href="results">See statistics</a>
+                </li>
+                <li>
+                    <a class="button" href="Logout">Logout</a>
+                </li>
+            </ul>    
+        </div>
         
-        <a href="Logout">Logout</a>
+        
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/foundation.min.js"></script>
     </body>
 </html>

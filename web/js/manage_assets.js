@@ -28,6 +28,13 @@ function Question(id, question, answer, level, fkCategory, fkClass) {
   self.fkCategory = ko.observable(fkCategory).extend({liveEditor: {type:"text"}, logChange: {type: 'Question', object: self}});
   self.fkClass = ko.observable(fkClass).extend({liveEditor: {type:"text"}, logChange: {type: 'Question', object: self}});
 
+    self.isEditingQuestion = ko.computed(function() {
+        if ( self.question.editing() || self.answer.editing() || self.level.editing() ){
+          return true;
+        } else{
+           return false;
+        }
+    }, self);
 }
 
 function Category(id, name, fkClass) {
@@ -42,7 +49,7 @@ function Category(id, name, fkClass) {
 function Class(id, name, categories) {
   var self = this;
 
-  self.id = id;
+  self.id = ko.observable(id);
   self.name = ko.observable(name).extend({liveEditor: {type:"text"}, logChange: {type: 'Class', object: self}});
 
 }
@@ -200,7 +207,7 @@ function AssetsViewModel() {
   };
   
   self.deleteClass = function(id) {
-
+    console.log("Deleting" + id);
     var data = new Object();
     data.type = "Class";
     data.object = id;
@@ -215,7 +222,7 @@ function AssetsViewModel() {
     }).done(function(data){
         console.log(data);
         self.classes.remove(function(classToRemove) {
-          return id == classToRemove.id;
+          return id == classToRemove.id();
         });
     }).fail(function(data){
         console.log("ERROR deleting class");

@@ -60,7 +60,11 @@ ko.extenders.logChange = function(target, element) {
       mimeType: 'application/json',
     }).done(function(data){
         console.log(data);
-        object.id = data.id;
+        if(type === 'Class'){
+            object.id(data.id);
+        }else{
+         object.id = data.id;
+        }
     }).fail(function(data){
         console.log("ERROR");
         console.log(data);
