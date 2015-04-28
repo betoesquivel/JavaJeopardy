@@ -19,7 +19,7 @@
             <br><br>
             Enter your email:  <input type="email" name="email" value="" />
             <br><br>
-            <input type="submit" name="signup" value="Sign Up">
+            <input type="submit" name="signin" value="Sign Up">
         </form>
     </body>
 </html>

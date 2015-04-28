@@ -40,7 +40,7 @@ public class Home extends HttpServlet {
                 prefixPassword = u.getPassword().substring(0, 6);
             }
             if(prefixPassword.equals("kjyguf")) {
-                url = "changePassword.jsp";
+                url = "change_password.jsp";
             } else {
                 url = "home.jsp";
             }
