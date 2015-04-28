@@ -12,13 +12,15 @@ package beans;
 public class GameProfile {
     private int id;
     private String name;
+    private int userId;
 
     public GameProfile() {
     }
 
-    public GameProfile(int id, String name) {
+    public GameProfile(int id, String name, int userId) {
         this.id = id;
         this.name = name;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -27,6 +29,14 @@ public class GameProfile {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {

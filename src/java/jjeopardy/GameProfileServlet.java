@@ -8,6 +8,8 @@ package jjeopardy;
 import beans.Category;
 import beans.Question;
 import beans.Class;
+import beans.GameProfile;
+import beans.User;
 import com.fasterxml.jackson.jr.ob.JSON;
 import dbhandlers.AssetDBHandler;
 import dbhandlers.GameProfileDBHandler;
@@ -93,7 +95,15 @@ public class GameProfileServlet extends HttpServlet {
         String name = (String) map.get("name");
         ArrayList<String> questions = (ArrayList<String>) map.get("questions");
         
-        int id = -1;
+        GameProfile newProfile = new GameProfile();
+        User user = (User) request.getSession().getAttribute("user");
+        newProfile.setName(name);
+        newProfile.setUserId(user.getId());
+        newProfile = gameProfileDB.createGameProfile(newProfile);
+        
+        gameProfileDB.createQuestionsGameProfile(newProfile, questions);
+        
+        int id = newProfile.getId();
 
         response.setContentType("application/json");
         PrintWriter out = new PrintWriter(response.getWriter());
