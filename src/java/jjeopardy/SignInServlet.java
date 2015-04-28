@@ -51,7 +51,7 @@ public class SignInServlet extends HttpServlet {
         if (username != null && password != null && email != null) {
             accountDB.createUser(username, password, email);
             
-            Mailer.send(email, "Jeopardy", password);
+            Mailer.send(email, "Jeopardy", "Your password is: " + password);
         }
         
         RequestDispatcher rd = request.getRequestDispatcher(url);

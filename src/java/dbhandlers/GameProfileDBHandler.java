@@ -68,6 +68,43 @@ public class GameProfileDBHandler {
         }
     }
     
+    public GameProfile getGameProfileById(int id) {
+        GameProfile gp = new GameProfile();
+        try {
+            statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM GameProfile where id="+id+"");
+            if(result.next()) {
+                gp.setId(result.getInt("id"));
+                gp.setName(result.getString("name"));
+
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GameProfileDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return gp;
+    
+    }
+    
+    public GameProfile getGameProfileByName(String name) {
+        GameProfile gp = new GameProfile();
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/jeopardy", "root", "");
+            Statement statement = conn.createStatement();
+            
+            ResultSet result = statement.executeQuery("SELECT * FROM GameProfile where name='"+name+"'");
+            if(result.next()) {
+                gp.setId(result.getInt("id"));
+                gp.setName(result.getString("name"));
+                
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(GameProfileDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return gp;
+    }
+    
     public Category getCategoryById(int id) {
         Category c = new Category();
         try {
