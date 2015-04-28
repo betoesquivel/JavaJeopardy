@@ -7,8 +7,10 @@ package jjeopardy;
 
 import beans.Category;
 import beans.Question;
+import beans.Class;
 import com.fasterxml.jackson.jr.ob.JSON;
 import dbhandlers.AssetDBHandler;
+import dbhandlers.GameProfileDBHandler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,9 +29,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class GameProfileServlet extends HttpServlet {
 
+    GameProfileDBHandler gameProfileDB;
     AssetDBHandler assetDB;
     public void init() throws ServletException {
         assetDB = new AssetDBHandler();
+        gameProfileDB = new GameProfileDBHandler();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,8 +52,8 @@ public class GameProfileServlet extends HttpServlet {
         
         ArrayList<Question> questions = assetDB.getQuestions();
         ArrayList<Category> categories = assetDB.getCategories();
-        ArrayList<beans.Class> classes = assetDB.getClasses();
-        
+        ArrayList<Class> classes = assetDB.getClasses();
+
         String questionsJSON = JSON.std.asString(questions);
         String categoriesJSON = JSON.std.asString(categories);
         String classesJSON = JSON.std.asString(classes);
@@ -58,7 +62,7 @@ public class GameProfileServlet extends HttpServlet {
         request.setAttribute("categoriesJSON", categoriesJSON);
         request.setAttribute("classesJSON", classesJSON);
         
-        String url = "manage_assets.jsp";
+        String url = "create_game_profile.jsp";
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request,response);
     }
@@ -87,7 +91,7 @@ public class GameProfileServlet extends HttpServlet {
         //Parse to a map
         Map<String, Object> map = JSON.std.mapFrom(json);
         String name = (String) map.get("name");
-        ArrayList<String> questions = (ArrayList) map.get("questions");
+        ArrayList<String> questions = (ArrayList<String>) map.get("questions");
         
         int id = -1;
 

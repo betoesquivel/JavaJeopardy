@@ -1,18 +1,36 @@
+function isInArray(x, arr) {
+    
+    for (var i = 0, l = arr.length; i < l; i++) {
+        if ( x == arr[i] ) {
+            return true;
+        }
+    }
+    
+    return false;
+    
+}
 function loadValues() {
-  questions = [];
-  for (var i = 0, l = sample_questions.length; i < l; i ++) {
-    var q = sample_questions[i];
+  var questions = [];
+  var categories = []; var categoriesIndex = 0;
+  var classes = []; var classesIndex = 0;
+  var categoriesWithQuestions = [];
+  var classesWithQuestions = [];
+  for (var i = 0, l = server_questions.length; i < l; i ++) {
+    var q = server_questions[i];
+    categoriesWithQuestions[categoriesWithQuestions.length] = q.fkCategory;
     questions[questions.length] = new Question(q.id, q.question, q.answer, q.level, q.fkCategory, q.fkClass);
   }
-  categories = [];
-  for (var i = 0, l = sample_categories.length; i < l; i ++) {
-    var c = sample_categories[i];
-    categories[categories.length] = new Category(c.id, c.name, c.fkClass);
+  for (var i = 0, l = server_categories.length; i < l; i ++) {
+    var c = server_categories[i];
+    if (isInArray(c.id, categoriesWithQuestions)){
+        categories[categories.length] = new Category(c.id, c.name, c.fkClass);
+        classesWithQuestions[classesWithQuestions.length] = c.fkClass;
+    }
   }
-  classes = [];
-  for (var i = 0, l = sample_classes.length; i < l; i ++) {
-    var c = sample_classes[i];
-    classes[classes.length] = new Class(c.id, c.name);
+  for (var i = 0, l = server_classes.length; i < l; i ++) {
+    var c = server_classes[i];
+    if (isInArray(c.id, classesWithQuestions))
+        classes[classes.length] = new Class(c.id, c.name);
   }
   profileVM.questions(questions);
   profileVM.categories(categories);
