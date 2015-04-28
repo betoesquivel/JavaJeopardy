@@ -31,6 +31,7 @@
               }
           }  
         %>
+        <br>
         <form action="Login" method="POST">
             Enter Username:  <input type="text" name="username" value="" />
             <br><br>
