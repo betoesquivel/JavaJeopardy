@@ -38,7 +38,7 @@ public class GameProfileDBHandler {
         try {
             Statement statement = connection.createStatement();
             String name = game.getName();
-            int userId = game.getId();
+            int userId = game.getUserId();
             String query = "insert into GameProfile (name, userId) values ('" + name + "'," + userId + ")";
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.getGeneratedKeys();

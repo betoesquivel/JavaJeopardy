@@ -14,7 +14,7 @@
     <body>
         <h1>Pick something to do: </h1>
         <a href="gameServlet?action=start">Play Jeopardy!</a><br>
-        <a href="create_game_profile.jsp">Create game profile</a><br>
+        <a href="GameProfile">Create game profile</a><br>
         <a href="ManageAssets">Create, edit, delete assets (questions, categories, classes)</a>
         <a href="#">See statistics</a><br>
         

@@ -200,7 +200,7 @@ function GameProfileViewModel() {
   self.categories = ko.observableArray([]);
   self.classes = ko.observableArray([]);
 
-  self.questionsPerCategory = 1;
+  self.questionsPerCategory = 5;
 
   self.validGame = ko.computed(function() {
     var baseName = 'selectedQuestions';
