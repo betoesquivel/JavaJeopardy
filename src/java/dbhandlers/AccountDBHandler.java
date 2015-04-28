@@ -7,7 +7,6 @@ package dbhandlers;
 
 import beans.User;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,16 +27,26 @@ public class AccountDBHandler {
         }
     }
     
-    public void createUser(String username, String password, String email) {
+    public User createUser(String username, String password, String email) {
         try {
             statement = connection.createStatement();
             // el id del user no importa porque tiene Autoincrement.
             String query = "insert into User (username, password, email) values ('%s', '%s', '%s');";
-            statement.executeUpdate(String.format(query, username, password, email));
+            statement.executeUpdate(String.format(query, username, password, email), Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs != null && rs.next()){
+                int id = rs.getInt(1);
+                User user = new User (id, username, password, email);
+                user.setStatus(0);
+                return user;
+            }
+            
             statement.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
     
     public void updateUser(User user) {

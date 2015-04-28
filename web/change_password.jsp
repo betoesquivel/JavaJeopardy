@@ -22,7 +22,7 @@
                 <br><br>
                 Confirm Password:  <input type="password" name="confirmPass" value="" />
                 <br><br>
-                <input type="submit" name="signup" value="Change Password">
+                <input type="submit" name="signin" value="Change Password">
             </form>
         </center>
     </body>
