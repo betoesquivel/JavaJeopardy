@@ -126,4 +126,21 @@ public class AccountDBHandler {
         }
         return user;
     }
+    
+    public boolean isValidAccount(String username, String password) {
+        int status = 0;
+        try {
+            statement = connection.createStatement();
+            String query = "SELECT status FROM User where username='"+username+"'AND password='"+password+"'";
+            ResultSet result = statement.executeQuery(query);
+            if(result.next()) {
+                status = result.getInt("status");
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return (status == 1) ? true:false;
+    }
 }

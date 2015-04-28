@@ -53,13 +53,13 @@ public class GameProfileDBHandler {
         return game;
     }
     
-    public void createQuestionsGameProfile(GameProfile game, ArrayList<Question> questions) {
-        Question q;
+    public void createQuestionsGameProfile(GameProfile game, ArrayList<String> questions) {
+        int q;
         for(int i=0; i<questions.size(); i++) {
-            q = questions.get(i);
+            q = Integer.parseInt(questions.get(i));
             try {
                 statement = connection.createStatement();
-                String query = "INSERT INTO QuestionGameProfile (questionId, gameProfileId) values (" + q.getId() + "," + game.getId() + ")";
+                String query = "INSERT INTO QuestionGameProfile (questionId, gameProfileId) values (" + q + "," + game.getId() + ")";
                 statement.executeUpdate(query);
                 statement.close();
             } catch (SQLException ex) {

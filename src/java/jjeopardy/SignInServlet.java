@@ -42,20 +42,30 @@ public class SignInServlet extends HttpServlet {
         
         
         String username = request.getParameter("username");
-        
-        //String uuid = UUID.randomUUID().toString();
-        String password = UUID.randomUUID().toString();
-        password= password.substring(0, 5);
+        String op = request.getParameter("signin");
         String email = request.getParameter("email");
         
-        if (username != null && password != null && email != null) {
-            accountDB.createUser(username, password, email);
+        if(op.equals("Sign Up")) {
+            //String uuid = UUID.randomUUID().toString();
+            String password = "kjyguf" + UUID.randomUUID().toString();
+
+            if (username != null && password != null && email != null) {
+                accountDB.createUser(username, password, email);
+
+                Mailer.send(email, "Jeopardy", "Your password is: " + password);
+            }
+
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        } else {
+            String newPass = request.getParameter("newPass");
+            String confirmPass = request.getParameter("confrimPass");
             
-            Mailer.send(email, "Jeopardy", "Your password is: " + password);
+            if(newPass != null && confirmPass != null && newPass.equals(confirmPass)) {
+                accountDB.createUser(username, newPass, email);
+                url = "home.jsp";
+            }
         }
-        
-        RequestDispatcher rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
     }
 
     /**

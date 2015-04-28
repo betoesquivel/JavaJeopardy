@@ -34,7 +34,13 @@ public class Home extends HttpServlet {
         HttpSession session = request.getSession(false);
         String url = "login.jsp";
         if (session != null && session.getAttribute("user") != null){
-            url = "home.jsp";
+            User u = (User) session.getAttribute("user");
+            String prefixPassword = u.getPassword().substring(0, 6);
+            if(prefixPassword.equals("kjyguf")) {
+                url = "changePassword.jsp";
+            } else {
+                url = "home.jsp";
+            }
         }
         
         RequestDispatcher rd = request.getRequestDispatcher(url); 
