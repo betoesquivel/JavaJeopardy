@@ -8,6 +8,7 @@ package jjeopardy;
 import beans.User;
 import dbhandlers.AccountDBHandler;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         User user = null;
         
         session = request.getSession();
-        if (accountDB == null) {
+        if (accountDB == null || isInvalidUser(username, (ArrayList<String>)session.getAttribute("invalidUsers"))) {
             url = "login.jsp";
         }else if ( (user = accountDB.validateUsernamePassword(username, password) ) == null) {
             if(session.getAttribute("loginAttempts") != null) {
@@ -57,6 +58,18 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("loginAttempts", attempts);
                 if(attempts == 3) {
                     url = "accountBlocked.jsp";
+                    session.setAttribute("loginAttempts", 0);
+                    session.setAttribute("statusLoginAttempt", "success");
+                    
+                    ArrayList<String> users;
+                    if ((users = (ArrayList<String>)session.getAttribute("invalidUsers")) == null ){
+                        users = new ArrayList<String>();
+                        users.add (username );
+                    }else {
+                        users.add (username );
+                    }
+                    
+                    session.setAttribute("invalidUsers", users);
                 }
             } else {
                 session.setAttribute("loginAttempts", 1);
@@ -79,6 +92,17 @@ public class LoginServlet extends HttpServlet {
         
     }
 
+    public boolean isInvalidUser(String user, ArrayList<String> invalidUsers) {
+        if (invalidUsers == null) {
+            return false; 
+        }
+        for (String invalidUser : invalidUsers) {
+            if (user.equalsIgnoreCase(invalidUser)){
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Returns a short description of the servlet.
      *

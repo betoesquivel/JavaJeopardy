@@ -28,6 +28,8 @@
                   out.println("<h3>Wrong password, try again. You have " + i + " left </h3>");
               } else if (session.getAttribute("statusLoginAttempt").equals("invalidAccount")) {
                   out.println("<h3>The account is blocked for too many failed login attempts </h3>");
+              } else {
+                  out.println("<h3> </h3>");
               }
           }  
         %>
