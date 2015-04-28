@@ -32,6 +32,14 @@
         <servlet-name>GameProfileServlet</servlet-name>
         <servlet-class>jjeopardy.GameProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GamesResults</servlet-name>
+        <servlet-class>jjeopardy.ResultServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GamesResults</servlet-name>
+        <url-pattern>/results</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>gameServlet</servlet-name>
         <url-pattern>/gameServlet/*</url-pattern>
