@@ -63,7 +63,12 @@ game.subtractPoints = function(team)
 }
 
 function alert() {
-    var r = confirm("¿Estás seguro? se borrara el juego");
+    var team1 = $("#team1");
+    var team2 = $('#team2');
+    console.log(team1.html());
+    console.log(team2.html());
+    var winner = team1.html() > team2.html() ? $('#t1').val():$('#t2').val() ;
+    var r = confirm("Are you sure you want to end the game? Winner is " + winner);
     if (r == true) {
         //top.location = "home.jsp";
         document.location.href="gameServlet?action=end&gameId="+ $('#gameId').val() + "&team1Id="+$('#team1Id').val()+"&team2Id="+$('#team2Id').val()+"&score1="+$('#team1').html()+"&score2="+$('#team2').html();

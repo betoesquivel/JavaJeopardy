@@ -322,10 +322,13 @@
     <br>
   </div>
   <div class="row">
-    <div data-alert class="alert-box warning" data-bind="visible: !validGame()">
+    <div id="warning" data-alert class="alert-box warning" data-bind="visible: !validGame()">
       You need to name your game profile and select exactly 5 classes per category.
     </div>
-    <a class="large-offset-3 medium-offset-3 small-offset-3 large-6 medium-6 small-6columms button" href="#"
+    <div id="success" data-alert class="alert-box success" data-bind="visible: !validGame()">
+      Successfully created game profile.
+    </div>
+    <a id="button" class="large-offset-3 medium-offset-3 small-offset-3 large-6 medium-6 small-6columms button" href="#"
       data-bind="visible: validGame, click: sendData">Create Game Profile</a>
   </div>
 

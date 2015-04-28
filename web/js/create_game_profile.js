@@ -1,3 +1,4 @@
+$('#success').hide();
 function isInArray(x, arr) {
     
     for (var i = 0, l = arr.length; i < l; i++) {
@@ -236,6 +237,12 @@ function GameProfileViewModel() {
       mimeType: 'application/json'
     }).done(function(data) {
       console.log("Id of created game profile: " + data.id);
+      $('#success').toggle();
+      $('#button').hide();
+      $('#warning').hide();
+      setTimeout(function() {
+         window.location = "Home";
+}     , 3000);
     }).fail(function(data) {
       console.log(data);
     })
