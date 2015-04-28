@@ -47,7 +47,7 @@ public class SignInServlet extends HttpServlet {
         
         if(op.equals("Sign Up")) {
             //String uuid = UUID.randomUUID().toString();
-            String password = "kjyguf" + UUID.randomUUID().toString();
+            String password = "kjyguf" + UUID.randomUUID().toString().substring(0, 20);
 
             if (username != null && password != null && email != null) {
                 accountDB.createUser(username, password, email);
@@ -59,7 +59,7 @@ public class SignInServlet extends HttpServlet {
             rd.forward(request, response);
         } else {
             String newPass = request.getParameter("newPass");
-            String confirmPass = request.getParameter("confrimPass");
+            String confirmPass = request.getParameter("confirmPass");
             
             if(newPass != null && confirmPass != null && newPass.equals(confirmPass)) {
                 accountDB.createUser(username, newPass, email);
