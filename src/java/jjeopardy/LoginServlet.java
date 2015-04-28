@@ -55,7 +55,11 @@ public class LoginServlet extends HttpServlet {
         }else if ( (user = accountDB.validateUsernamePassword(username, password) ) == null) {
             if(session.getAttribute("loginAttempts") != null) {
                 int attempts = (int) session.getAttribute("loginAttempts");
-                session.setAttribute("loginAttempts", attempts+1);
+                attempts++;
+                session.setAttribute("loginAttempts", attempts);
+                if(attempts == 3) {
+                    url = "accountBlocked.jsp";
+                }
             } else {
                 session.setAttribute("loginAttempts", 0);
             }
