@@ -56,6 +56,7 @@ public class LoginServlet extends HttpServlet {
                 int attempts = (int) session.getAttribute("loginAttempts");
                 attempts += 1;
                 session.setAttribute("loginAttempts", attempts);
+                session.setAttribute("statusLoginAttempt", "fail");
                 if(attempts == 3) {
                     url = "accountBlocked.jsp";
                     session.setAttribute("loginAttempts", 0);
@@ -73,8 +74,8 @@ public class LoginServlet extends HttpServlet {
                 }
             } else {
                 session.setAttribute("loginAttempts", 1);
+                session.setAttribute("statusLoginAttempt", "fail");
             }
-            session.setAttribute("statusLoginAttempt", "fail");
         }else {
             if(accountDB.isValidAccount(username, password)) {
                 session.setAttribute("statusLoginAttempt", "invalidAccount");
