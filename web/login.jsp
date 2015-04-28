@@ -10,9 +10,27 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
+        
+        <style>
+            h3 {
+                color: red;
+            }
+        </style>
     </head>
     <body>
         <h1>Log In</h1>
+        <br>
+        <%
+          if(session.getAttribute("statusLoginAttempt") != null) {
+              
+              if( session.getAttribute("statusLoginAttempt").equals("fail")) {
+                  int i = 3 - ((int)session.getAttribute("loginAttempts"));
+                  out.println("<h3>Wrong password, try again. You have " + i + " left </h3>");
+              } else if (session.getAttribute("statusLoginAttempt").equals("invalidAccount")) {
+                  out.println("<h3>The account is blocked for too many failed login attempts </h3>");
+              }
+          }  
+        %>
         <br>
         <form action="Login" method="POST">
             Enter Username:  <input type="text" name="username" value="" />

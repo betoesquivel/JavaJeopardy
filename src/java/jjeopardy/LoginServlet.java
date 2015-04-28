@@ -53,9 +53,22 @@ public class LoginServlet extends HttpServlet {
         if (accountDB == null) {
             url = "login.jsp";
         }else if ( (user = accountDB.validateUsernamePassword(username, password) ) == null) {
-            url = "signin.jsp";
+            if(session.getAttribute("loginAttempts") != null) {
+                int attempts = (int) session.getAttribute("loginAttempts");
+                session.setAttribute("loginAttempts", attempts+1);
+            } else {
+                session.setAttribute("loginAttempts", 0);
+            }
+            session.setAttribute("statusLoginAttempt", "fail");
         }else {
+            if(accountDB.isValidAccount(username, password)) {
+                session.setAttribute("statusLoginAttempt", "invalidAccount");
+            } else {
+                session.setAttribute("statusLoginAttempt", "success");
+            }
             session.setAttribute("user", user);
+            session.setAttribute("loginAttempt", 0);
+            
             url = "Home";
         }
         
