@@ -325,7 +325,7 @@
     <div id="warning" data-alert class="alert-box warning" data-bind="visible: !validGame()">
       You need to name your game profile and select exactly 5 classes per category.
     </div>
-    <div id="success" data-alert class="alert-box success" data-bind="visible: !validGame()">
+    <div id="success" data-alert class="alert-box success" >
       Successfully created game profile.
     </div>
     <a id="button" class="large-offset-3 medium-offset-3 small-offset-3 large-6 medium-6 small-6columms button" href="#"
@@ -337,6 +337,7 @@
   <script src="js/foundation.min.js"></script>
   <script src="js/sample_data.js"></script>
   <script>
+      $('#success').hide();
     var questionsJSON = '${questionsJSON}';
     var categoriesJSON = '${categoriesJSON}';
     var classesJSON = '${classesJSON}';
