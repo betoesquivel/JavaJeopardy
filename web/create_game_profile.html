@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <title>Create Game Profile</title>
   <link rel="stylesheet" href="css/foundation.css"/>
+  <style>
+    #footer {
+
+      position: fixed;
+
+      bottom: 0;
+
+      width: 100%;
+
+      height: 50px; /* choose any height */
+
+    }
+  </style>
 </head>
 <body>
 
@@ -302,7 +315,11 @@
     <br>
   </div>
   <div class="row">
-    <a class="large-offset-3 medium-offset-3 small-offset-3 large-6 medium-6 small-6columms button" href="#">Create Game Profile</a>
+    <div data-alert class="alert-box warning" data-bind="visible: !validGame()">
+      You need to name your game profile and select exactly 5 classes per category.
+    </div>
+    <a class="large-offset-3 medium-offset-3 small-offset-3 large-6 medium-6 small-6columms button" href="#"
+      data-bind="visible: validGame, click: sendData">Create Game Profile</a>
   </div>
 
   <script src="js/vendor/jquery.js"></script>
@@ -318,6 +335,7 @@
     //var server_categories = JSON.parse(categoriesJSON);
     //var server_classes = JSON.parse(classesJSON);
   </script>
+  <script src="js/custom_knockout_extenders.js"></script>
   <script src="js/create_game_profile.js"></script>
 </body>
 </html>

@@ -69,10 +69,11 @@ ko.extenders.logChange = function(target, element) {
 
 };
 
-ko.extenders.clearArrayOnChange = function(target, array) {
+ko.extenders.clearArrayOnChange = function(target, arrayInfo) {
 
   target.subscribe(function(newValue) {
-    array([]);
+    console.log("Change in value");
+    arrayInfo.arrayParent[ arrayInfo.array ]([]);
   });
 
 };

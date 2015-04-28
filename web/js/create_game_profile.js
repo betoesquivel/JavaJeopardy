@@ -67,7 +67,7 @@ function GameProfileViewModel() {
 
   self.name = ko.observable("No name");
 
-  self.selectedCategory1 = ko.observable().extend( { clearArrayOnChange: self.selectedQuestions1 } );
+  self.selectedCategory1 = ko.observable().extend( { clearArrayOnChange: {'arrayParent': self, 'array': 'selectedQuestions1' }} );
   self.selectedClass1 = ko.observable();
   self.categories1 = ko.computed(function() {
     if (self.selectedClass1()){
@@ -89,7 +89,7 @@ function GameProfileViewModel() {
   }, self);
   self.selectedQuestions1 = ko.observableArray([]);
 
-  self.selectedCategory2 = ko.observable().extend( { clearArrayOnChange: self.selectedQuestions1 } );;
+  self.selectedCategory2 = ko.observable().extend( { clearArrayOnChange: {'arrayParent': self, 'array': 'selectedQuestions2' }} );
   self.selectedClass2 = ko.observable();
   self.categories2 = ko.computed(function() {
     if (self.selectedClass2()){
@@ -111,7 +111,7 @@ function GameProfileViewModel() {
   }, self);
   self.selectedQuestions2 = ko.observableArray([]);
 
-  self.selectedCategory3 = ko.observable().extend( { clearArrayOnChange: self.selectedQuestions1 } );;
+  self.selectedCategory3 = ko.observable().extend( { clearArrayOnChange: {'arrayParent': self, 'array': 'selectedQuestions3' } });
   self.selectedClass3 = ko.observable();
   self.categories3 = ko.computed(function() {
     if (self.selectedClass3()){
@@ -133,7 +133,7 @@ function GameProfileViewModel() {
   }, self);
   self.selectedQuestions3 = ko.observableArray([]);
 
-  self.selectedCategory4 = ko.observable().extend( { clearArrayOnChange: self.selectedQuestions1 } );;
+  self.selectedCategory4 = ko.observable().extend( { clearArrayOnChange: {'arrayParent': self, 'array': 'selectedQuestions4' } });
   self.selectedClass4 = ko.observable();
   self.categories4 = ko.computed(function() {
     if (self.selectedClass4()){
@@ -155,7 +155,7 @@ function GameProfileViewModel() {
   }, self);
   self.selectedQuestions4 = ko.observableArray([]);
 
-  self.selectedCategory5 = ko.observable().extend( { clearArrayOnChange: self.selectedQuestions1 } );;
+  self.selectedCategory5 = ko.observable().extend( { clearArrayOnChange: {'arrayParent': self, 'array': 'selectedQuestions5' } });
   self.selectedClass5 = ko.observable();
   self.categories5 = ko.computed(function() {
     if (self.selectedClass5()){
@@ -181,6 +181,47 @@ function GameProfileViewModel() {
   self.questions = ko.observableArray([]);
   self.categories = ko.observableArray([]);
   self.classes = ko.observableArray([]);
+
+  self.questionsPerCategory = 1;
+
+  self.validGame = ko.computed(function() {
+    var baseName = 'selectedQuestions';
+    for (var i = 1, l = 5; i <= l; i ++) {
+      var questionsArrayName = baseName + i;
+      var categoryQuestions = self[questionsArrayName]();
+      if (categoryQuestions.length != self.questionsPerCategory()) {
+        return false;
+      }
+    }
+    return self.name() && true;
+  });
+
+  self.sendData = function() {
+
+    var data = new Object();
+    var questions = ko.toJS(self.selectedQuestions1());
+    questions = questions.concat(ko.toJS(self.selectedQuestions2()));
+    questions = questions.concat(ko.toJS(self.selectedQuestions3()));
+    questions = questions.concat(ko.toJS(self.selectedQuestions4()));
+    questions = questions.concat(ko.toJS(self.selectedQuestions5()));
+
+    console.log(questions);
+    data.questions = JSON.stringify(questions);
+    data.name = self.name();
+
+    $.ajax({
+      url: 'GameProfile',
+      type: 'POST',
+      dataType: 'json',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      mimeType: 'application/json'
+    }).done(function(data) {
+      console.log("Id of created game profile: " + data.id);
+    }).fail(function(data) {
+      console.log(data);
+    })
+  }
 
 }
 
