@@ -65,8 +65,15 @@ ko.extenders.logChange = function(target, element) {
         console.log("ERROR");
         console.log(data);
     });
-    
-    
+  });
+
+};
+
+ko.extenders.clearArrayOnChange = function(target, arrayInfo) {
+
+  target.subscribe(function(newValue) {
+    console.log("Change in value");
+    arrayInfo.arrayParent[ arrayInfo.array ]([]);
   });
 
 };

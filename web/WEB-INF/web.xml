@@ -23,9 +23,14 @@
     <servlet>
         <servlet-name>ManageAssetsServlet</servlet-name>
         <servlet-class>jjeopardy.ManageAssetsServlet</servlet-class>
-    </servlet>    <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>gameServlet</servlet-name>
         <servlet-class>jjeopardy.GameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GameProfileServlet</servlet-name>
+        <servlet-class>jjeopardy.GameProfileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>gameServlet</servlet-name>
@@ -54,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ManageAssetsServlet</servlet-name>
         <url-pattern>/ManageAssets</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameProfileServlet</servlet-name>
+        <url-pattern>/GameProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

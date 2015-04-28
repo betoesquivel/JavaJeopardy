@@ -5,6 +5,12 @@
  */
 package beans;
 
+import com.fasterxml.jackson.jr.ob.JSON;
+import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author betoesquivel
@@ -35,6 +41,20 @@ public class Question {
         this.fkClass = -1;
     }
 
+    public Question(String json) {
+        try {
+            Map<String, Object> map = JSON.std.mapFrom(json);
+            this.id = (int) map.get("id");
+            this.question = (String) map.get("question");
+            this.answer = (String) map.get("answer");
+            this.level = (int) map.get("level");
+            this.fkCategory = (int) map.get("fkCategory");
+            this.fkClass = -1;
+        } catch (IOException ex) {
+            Logger.getLogger(Question.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     public int getLevel() {
         return level;
     }
